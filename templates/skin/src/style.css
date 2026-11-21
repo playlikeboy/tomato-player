@@ -1,0 +1,3 @@
+/* Scope EVERY selector to your skin. `pnpm validate` enforces this. */
+.tp[data-skin='__name__'] { --tp-radius: 10px; border-radius: var(--tp-radius); }
+.tp[data-skin='__name__'] .tp-controls { position: absolute; inset: auto 0 0 0; padding: 32px 12px 8px; background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent); }
