@@ -23,7 +23,7 @@
 .tp[data-skin='studio'] .tp-controls { position: relative; display: grid; gap: 4px; padding: 6px 8px 8px; background: var(--tp-surface); border-top: 1px solid #262a31; }
 .tp[data-skin='studio'] .tp-slider-track { border-radius: 2px; }
 .tp[data-skin='studio'] .tp-slider-thumb { width: 3px; height: 18px; margin-left: -1.5px; border-radius: 1px; transform: none; }
-.tp[data-skin='studio'] .tp-timecode { padding: 4px 10px; margin-left: 6px; border-radius: 3px; background: #000; color: var(--tp-accent); font-size: 13px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.tp[data-skin='studio'] .tp-timecode { padding: 4px 10px; margin-left: 6px; border-radius: 3px; background: #000; color: var(--tp-accent); font-size: 13px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .tp[data-skin='studio'] .tp-tc-duration, .tp[data-skin='studio'] .tp-tc-sep { color: #6b7280; }
 .tp[data-skin='studio'] .tp-ab { font-size: 12px; padding: 0 10px; }
 .tp[data-skin='studio'] .tp-ab .tp-button-text { margin: 0; }
