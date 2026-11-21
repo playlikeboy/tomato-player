@@ -1,0 +1,27 @@
+{
+  "name": "@tomato-player/core",
+  "version": "0.1.0",
+  "description": "Tiny, framework-agnostic, SSR-safe video player engine for Tomato Player.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "keywords": ["video", "player", "html5", "media", "hls", "dash", "tomato-player"],
+  "repository": { "type": "git", "url": "https://github.com/playlikeboy/tomato-player", "directory": "packages/core" },
+  "tomato": { "kind": "core" }
+}

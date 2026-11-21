@@ -21,6 +21,8 @@ importers:
         specifier: ^3.0.0
         version: 3.2.7(@types/node@26.6.6)(happy-dom@20.14.6)
 
+  packages/core: {}
+
 packages:
 
   '@esbuild/aix-ppc64@0.27.7':
