@@ -6,6 +6,8 @@ export { definePlugin, defineSkin, defineProvider } from './define';
 export { nativeProvider } from './providers/native';
 export { en as defaultStrings, translate } from './i18n';
 export { clamp, formatTime, guessType, normalizeSource, isHlsType, isDashType, supportsMSE, injectStyle, isBrowser, rangesFrom } from './utils';
+export { parseVtt, parseVttTime } from './vtt';
+export type { VttCue } from './vtt';
 export type * from './types';
 
 export const version = '0.1.0';
