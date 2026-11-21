@@ -1,0 +1,27 @@
+{
+  "name": "tomato-player-monorepo",
+  "private": true,
+  "description": "Tomato Player — one player, a thousand possibilities.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@9.15.0",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/**\" build",
+    "dev": "pnpm -r --parallel --filter \"./packages/**\" dev",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "pnpm -r --filter \"./packages/**\" typecheck",
+    "validate": "node scripts/validate-extensions.mjs",
+    "size": "node scripts/size.mjs",
+    "new": "node scripts/new.mjs",
+    "playground": "pnpm build && node scripts/serve.mjs",
+    "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm validate && pnpm size"
+  },
+  "devDependencies": {
+    "happy-dom": "^20.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^3.0.0"
+  }
+}

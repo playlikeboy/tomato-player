@@ -1,0 +1,6 @@
+packages:
+  - "packages/*"
+  - "packages/skins/*"
+  - "packages/plugins/*"
+  - "packages/providers/*"
+  - "packages/integrations/*"
