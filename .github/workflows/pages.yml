@@ -27,21 +27,23 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - run: pnpm docs:llms
-      - run: pnpm site
+      # Next.js static export + Astryx UI + Pagefind search index (apps/website).
+      - run: pnpm --filter @tomato-player/website build
         env:
-          SITE_BASE: /${{ github.event.repository.name }}/
-          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NEXT_TELEMETRY_DISABLED: 1
       # Pull requests: downloadable preview of the whole site (Actions → run → Artifacts).
       - if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v4
         with:
           name: site-preview-pr-${{ github.event.number }}
-          path: site-dist
+          path: apps/website/out
           retention-days: 14
       - if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site-dist
+          path: apps/website/out
 
   deploy:
     name: Deploy to GitHub Pages

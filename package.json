@@ -20,14 +20,13 @@
     "playground": "pnpm build && node scripts/serve.mjs",
     "docs:llms": "node scripts/build-llms.mjs",
     "check": "pnpm build && pnpm typecheck && pnpm test && pnpm validate && pnpm size",
-    "site": "node scripts/build-site.mjs",
-    "site:dev": "SITE_BASE=/site-dist/ node scripts/build-site.mjs && node scripts/serve.mjs",
+    "site": "pnpm build && pnpm docs:llms && pnpm --filter @tomato-player/website build",
+    "site:dev": "pnpm build && pnpm --filter @tomato-player/website dev",
     "release": "pnpm run check && pnpm -r publish --access public --no-git-checks"
   },
   "devDependencies": {
     "@types/react-dom": "^19.3.0",
     "happy-dom": "^20.0.0",
-    "marked": "^15",
     "react": "^19.0.0",
     "react-dom": "^19.3.1",
     "tsup": "^8.3.5",
