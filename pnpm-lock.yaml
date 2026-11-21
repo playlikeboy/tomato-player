@@ -23,6 +23,54 @@ importers:
 
   packages/core: {}
 
+  packages/plugins/analytics:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/chapters:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/gestures:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/hotkeys:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/media-session:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/persist:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/playlist:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
+  packages/plugins/thumbnails:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+
   packages/providers/dash:
     dependencies:
       '@tomato-player/core':
