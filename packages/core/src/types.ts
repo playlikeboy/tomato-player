@@ -219,6 +219,12 @@ export interface PlayerOptions {
   i18n?: Record<string, string>;
   /** Accessible name for the player region. */
   label?: string;
+  /**
+   * What to do where the element Fullscreen API is missing (iPhone Safari).
+   * `'native'` (default) uses the system video player (custom UI disappears);
+   * `'pseudo'` pins the player to the viewport with CSS and keeps your skin.
+   */
+  fullscreenFallback?: 'native' | 'pseudo';
   /** Aspect ratio for the container, e.g. `"16/9"`. `false` to let CSS decide. */
   aspectRatio?: string | false;
 }

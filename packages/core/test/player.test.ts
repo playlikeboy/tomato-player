@@ -127,3 +127,18 @@ describe('createPlayer', () => {
     expect(player.destroyed).toBe(true);
   });
 });
+
+describe('pseudo fullscreen fallback', () => {
+  it('pins the player with CSS when the Fullscreen API is missing', async () => {
+    const host = document.createElement('div');
+    document.body.appendChild(host);
+    (host as any).requestFullscreen = undefined;
+    const player = createPlayer(host, { fullscreenFallback: 'pseudo' });
+    await player.enterFullscreen();
+    expect(player.state.fullscreen).toBe(true);
+    expect(host.hasAttribute('data-pseudo-fullscreen')).toBe(true);
+    await player.exitFullscreen();
+    expect(player.state.fullscreen).toBe(false);
+    expect(host.hasAttribute('data-pseudo-fullscreen')).toBe(false);
+  });
+});
