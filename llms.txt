@@ -1,0 +1,39 @@
+# Tomato Player
+
+> Tomato Player is an open-source (MIT), modular, SSR-safe web video player ecosystem. A ~5.7 KB gz core drives the native <video> element. Skins, plugins, streaming providers (HLS via hls.js, DASH via dash.js) and framework bindings (React, Vue, Svelte, web component) are separate packages, so apps ship only what they use.
+
+Key facts for code generation:
+- Create a player: `createPlayer(targetSelectorOrElement, { src, skin: minimal(), plugins: [hotkeys()], providers: [hls()] })` from `@tomato-player/core`.
+- Skins are factories from `@tomato-player/skin-<name>`: minimal, cinema, studio, creator, learn, campus, stream, tube, feed. Call them: `skin: cinema()`.
+- Plugins are factories from `@tomato-player/plugin-<name>`: hotkeys, gestures, chapters, thumbnails, playlist, analytics, media-session (export `mediaSession`), persist.
+- Streaming engines are optional peer deps: `npm i @tomato-player/provider-hls hls.js`.
+- State: `player.state.paused`, `player.store.select(s => s.currentTime, cb)`. Methods: play, pause, seek(seconds), setVolume(0..1), setSource(src), setSkin(skin), destroy().
+- React: `import { TomatoPlayer } from '@tomato-player/react'` -> `<TomatoPlayer src skin={minimal()} />`. Memoize skin/plugins.
+- No bundler: `<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js">` then `<tomato-player src="..." skin="cinema">`.
+- Never call createPlayer during SSR render; use effects/onMounted/actions.
+
+## Docs
+
+- [Getting started](https://github.com/playlikeboy/tomato-player/blob/main/docs/getting-started.md): install, first player, CDN, frameworks
+- [Player API](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/player.md): options, state, methods, events, error codes
+- [UI primitives](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/ui.md): controls for building skins
+- [Architecture](https://github.com/playlikeboy/tomato-player/blob/main/docs/concepts/architecture.md)
+- [Skins and theming](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/skins.md): tokens, data attributes, CSP
+- [Plugins](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/plugins.md)
+- [Streaming, HLS, DASH, DRM](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/streaming.md)
+- [Frameworks](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/frameworks.md): React/Next, Vue/Nuxt, Svelte/SvelteKit, web component
+- [Accessibility](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/accessibility.md)
+- [Troubleshooting](https://github.com/playlikeboy/tomato-player/blob/main/docs/troubleshooting.md)
+- [Migration from Plyr, Video.js, Vidstack, ReactPlayer](https://github.com/playlikeboy/tomato-player/blob/main/docs/migration/README.md)
+
+## Extending
+
+- [Create a skin](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-skin.md)
+- [Create a plugin](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-plugin.md)
+- [Create a provider](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-provider.md)
+
+## Optional
+
+- [Full documentation in one file](https://github.com/playlikeboy/tomato-player/blob/main/docs/llms-full.txt)
+- [Research collection](https://github.com/playlikeboy/tomato-player/blob/main/docs/research/README.md)
+- [Roadmap](https://github.com/playlikeboy/tomato-player/blob/main/docs/roadmap.md)

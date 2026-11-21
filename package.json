@@ -18,6 +18,7 @@
     "size": "node scripts/size.mjs",
     "new": "node scripts/new.mjs",
     "playground": "pnpm build && node scripts/serve.mjs",
+    "docs:llms": "node scripts/build-llms.mjs",
     "ci": "pnpm build && pnpm typecheck && pnpm test && pnpm validate && pnpm size"
   },
   "devDependencies": {
