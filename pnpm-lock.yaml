@@ -90,6 +90,87 @@ importers:
         specifier: ^1.6.0
         version: 1.7.4
 
+  packages/skins/campus:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/cinema:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/creator:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/feed:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/learn:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/minimal:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/stream:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/studio:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
+  packages/skins/tube:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../../core
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../../ui
+
   packages/ui:
     dependencies:
       '@tomato-player/core':
