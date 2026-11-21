@@ -1,0 +1,17 @@
+.tp[data-skin='feed'] {
+  --tp-font: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --tp-control-size: 36px;
+  --tp-icon-size: 20px;
+  --tp-slider-height: 3px;
+  --tp-surface: rgba(36, 37, 38, 0.95);
+  --tp-thumb: #fff;
+  border-radius: 8px;
+}
+.tp[data-skin='feed'] .tp-controls { position: absolute; inset: auto 0 0 0; display: grid; padding: 40px 8px 4px; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent); }
+.tp[data-skin='feed'] .tp-controls > .tp-time-slider { order: 2; }
+.tp[data-skin='feed'][data-muted-autoplay] .tp-controls { opacity: 0; visibility: hidden; }
+.tp[data-skin='feed'] .tp-feed-unmute { position: absolute; left: 12px; bottom: 12px; }
+.tp[data-skin='feed'] .tp-unmute { height: 32px; padding: 0 12px 0 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.6); font-size: 13px; --tp-icon-size: 18px; }
+.tp[data-skin='feed'] .tp-unmute:hover { background: rgba(0, 0, 0, 0.8); }
+.tp[data-skin='feed']:not([data-started]) .tp-controls .tp-time-slider { display: none; }
+.tp[data-skin='feed'] .tp-time-display { font-size: 12px; }

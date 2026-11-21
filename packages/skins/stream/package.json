@@ -1,0 +1,46 @@
+{
+  "name": "@tomato-player/skin-stream",
+  "version": "0.1.0",
+  "description": "Unofficial streaming-service-inspired skin (Netflix-like patterns). Not affiliated with Netflix.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --loader .css=text && cp src/style.css dist/style.css",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@tomato-player/core": "workspace:*",
+    "@tomato-player/ui": "workspace:*"
+  },
+  "keywords": [
+    "tomato-player",
+    "tomato-player-skin",
+    "video",
+    "player"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playlikeboy/tomato-player",
+    "directory": "packages/skins/stream"
+  },
+  "tomato": {
+    "kind": "skin"
+  }
+}
