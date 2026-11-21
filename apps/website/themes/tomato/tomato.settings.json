@@ -1,0 +1,46 @@
+{
+  "name": "tomato",
+  "like": "neutral",
+  "mode": "both",
+  "settings": [
+    {
+      "thing": "accent",
+      "value": "#d12f1f",
+      "source": "dial"
+    },
+    {
+      "thing": "neutral",
+      "value": "#78716c",
+      "source": "dial"
+    },
+    {
+      "thing": "success",
+      "value": "#16a34a",
+      "source": "dial"
+    },
+    {
+      "thing": "corners",
+      "value": "round",
+      "source": "dial"
+    },
+    {
+      "thing": "headings",
+      "value": "bold",
+      "source": "dial",
+      "axis": "weight"
+    },
+    {
+      "thing": "headings",
+      "value": "tight",
+      "source": "dial",
+      "axis": "tracking"
+    },
+    {
+      "thing": "font",
+      "value": "geist",
+      "source": "dial"
+    }
+  ],
+  "lifted": [],
+  "palette": "57afec7fc1590677ba7fd91525ef2288356e2a8b03737cefe2cb34b1b374b249"
+}

@@ -1,0 +1,28 @@
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+
+/* Host element of live Tomato Player demos. */
+.tp-host {
+  inline-size: 100%;
+  border-radius: var(--radius-container);
+  overflow: hidden;
+  background: #000;
+  box-shadow: var(--shadow-high);
+}
+.tp-host[data-portrait] {
+  max-inline-size: 380px;
+  margin-inline: auto;
+}
+/* Reserve 16:9 before the player script runs, to avoid layout shift. */
+.tp-host:empty {
+  aspect-ratio: 16 / 9;
+}
+.tp-host[data-portrait]:empty {
+  aspect-ratio: 9 / 16;
+}
+.tp-shot {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-element);
+}

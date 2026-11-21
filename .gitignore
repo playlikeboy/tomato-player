@@ -8,3 +8,14 @@ coverage/
 .vscode/*
 !.vscode/extensions.json
 site-dist/
+apps/website/.next/
+apps/website/out/
+apps/website/next-env.d.ts
+apps/website/tsconfig.tsbuildinfo
+apps/website/public/assets/
+apps/website/public/media/
+apps/website/public/lib/
+apps/website/public/examples/
+apps/website/public/llms*.txt
+apps/website/themes/*/*.png
+apps/website/themes/*/*.html
