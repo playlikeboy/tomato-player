@@ -1,6 +1,8 @@
 import baseCss from './base.css';
 
 export * from './controls';
+export { createSkin } from './skin';
+export type { SkinDefinition } from './skin';
 export { h, svg, append, Scope } from './dom';
 export type { Child } from './dom';
 export { icons } from './icons';

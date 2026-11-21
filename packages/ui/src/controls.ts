@@ -571,3 +571,119 @@ export function mountAll(root: HTMLElement, controls: (Control | null | undefine
     for (const c of list) c.destroy();
   };
 }
+
+// ---------------------------------------------------------------- Behaviours
+
+export interface InViewOptions {
+  /** Visible fraction that triggers muted autoplay (default 0.6). */
+  playAt?: number;
+  /** Visible fraction under which muted playback pauses (default 0.2). */
+  pauseAt?: number;
+  /** Skip when the user prefers reduced motion or Save-Data (default true). */
+  respectQuiet?: boolean;
+  /** Only autoplay once (default true). */
+  once?: boolean;
+}
+
+/**
+ * Social-feed behaviour: muted autoplay when the player scrolls into view,
+ * pause again when it scrolls away. Returns a cleanup function.
+ */
+export function autoplayInView(player: Player, opts: InViewOptions = {}): () => void {
+  if (typeof IntersectionObserver === 'undefined') return () => {};
+  const quiet =
+    (opts.respectQuiet ?? true) &&
+    (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || (navigator as any).connection?.saveData === true);
+  if (quiet) return () => {};
+  const playAt = opts.playAt ?? 0.6;
+  const pauseAt = opts.pauseAt ?? 0.2;
+  let done = false;
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry) return;
+      const { media } = player;
+      if (entry.intersectionRatio >= playAt && media.paused && !(done && (opts.once ?? true))) {
+        done = true;
+        media.muted = true;
+        player.el.setAttribute('data-muted-autoplay', '');
+        media.play().catch(() => player.el.removeAttribute('data-muted-autoplay'));
+      } else if (entry.intersectionRatio < pauseAt && media.muted && !media.paused) {
+        media.pause();
+      }
+    },
+    { threshold: [0, pauseAt, playAt] },
+  );
+  io.observe(player.el);
+  const off = player.on('volumechange', ({ muted }) => {
+    if (!muted) player.el.removeAttribute('data-muted-autoplay');
+  });
+  return () => {
+    io.disconnect();
+    off();
+    player.el.removeAttribute('data-muted-autoplay');
+  };
+}
+
+/** "Tap to unmute" pill shown during muted autoplay. Restarts from 0 with sound by default. */
+export function unmuteButton(player: Player, opts: { restart?: boolean; label?: string } = {}): Control {
+  const c = button(player, {
+    icon: 'volumeMuted',
+    label: opts.label ?? player.t('tapToUnmute'),
+    text: opts.label ?? player.t('tapToUnmute'),
+    className: 'tp-unmute',
+    onClick: () => {
+      if (opts.restart ?? true) player.seek(0);
+      player.setMuted(false);
+      if (player.media.volume === 0) player.setVolume(0.6);
+      void player.play();
+    },
+  });
+  return c;
+}
+
+/** Button that cycles playback rates and shows the current one, e.g. `1.5x`. */
+export function rateButton(player: Player, rates = [1, 1.25, 1.5, 2, 0.75]): Control {
+  const scope = new Scope();
+  const el = h('button', { type: 'button', class: 'tp-button tp-rate' });
+  scope.listen(el, 'click', () => {
+    const i = rates.indexOf(player.state.playbackRate);
+    player.setPlaybackRate(rates[(i + 1) % rates.length]!);
+  });
+  watch(scope, player, (s) => s.playbackRate, (r) => {
+    el.textContent = `${r}x`;
+    el.setAttribute('aria-label', `${player.t('speed')} ${r}x`);
+  });
+  return control(el, scope);
+}
+
+/**
+ * Render the active caption cue as a styleable element instead of native `::cue`
+ * (native cue styling is very limited, especially on Safari). Hides native rendering.
+ */
+export function captionOverlay(player: Player): Control {
+  const scope = new Scope();
+  const text = h('p', { class: 'tp-caption-text' });
+  const el = h('div', { class: 'tp-caption', 'aria-hidden': 'true', hidden: true }, text);
+  let current: TextTrack | null = null;
+  player.provide('captionsRenderer', true);
+  scope.add(() => player.provide('captionsRenderer', false));
+  const onCue = () => {
+    const cue = current?.activeCues?.[0] as VTTCue | undefined;
+    text.textContent = cue?.text ?? '';
+    el.hidden = !cue;
+  };
+  watch(scope, player, (s) => s.textTrack, (index) => {
+    current?.removeEventListener('cuechange', onCue);
+    current = null;
+    el.hidden = true;
+    const tracks = Array.from(player.media.textTracks ?? []).filter((t) => t.kind === 'subtitles' || t.kind === 'captions');
+    const track = tracks[index];
+    if (!track) return;
+    track.mode = 'hidden'; // keep cues firing, hide native rendering
+    current = track;
+    track.addEventListener('cuechange', onCue);
+    onCue();
+  });
+  scope.add(() => current?.removeEventListener('cuechange', onCue));
+  return control(el, scope);
+}

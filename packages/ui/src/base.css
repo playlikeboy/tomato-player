@@ -179,3 +179,15 @@
   .tp-slider-fill { background: Highlight; }
   .tp-slider-track { border: 1px solid CanvasText; }
 }
+
+/* Auto-hide: any element with .tp-autohide fades out while playing and idle. */
+.tp-autohide { transition: opacity 300ms var(--tp-ease), transform 300ms var(--tp-ease), visibility 300ms; }
+.tp[data-playing][data-idle]:not([data-menu-open]) .tp-autohide { opacity: 0; visibility: hidden; }
+.tp:not([data-started]) .tp-hide-unstarted { display: none !important; }
+.tp-row { display: flex; align-items: center; gap: var(--tp-gap); min-width: 0; }
+.tp-rate { font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; }
+.tp-unmute { display: none; }
+.tp[data-muted-autoplay] .tp-unmute { display: inline-flex; }
+.tp-caption { position: absolute; inset: auto 0 calc(var(--tp-caption-offset, 64px)) 0; display: flex; justify-content: center; padding: 0 16px; pointer-events: none !important; transition: bottom var(--tp-duration) var(--tp-ease); }
+.tp[data-playing][data-idle] .tp-caption { --tp-caption-offset: 20px; }
+.tp-caption-text { margin: 0; max-width: 40ch; padding: 4px 10px; border-radius: 6px; background: rgba(0, 0, 0, 0.75); text-align: center; font-size: clamp(14px, 2.4cqw, 22px); white-space: pre-line; }
