@@ -212,6 +212,69 @@ importers:
         specifier: workspace:*
         version: link:../../ui
 
+  packages/tomato-player:
+    dependencies:
+      '@tomato-player/core':
+        specifier: workspace:*
+        version: link:../core
+      '@tomato-player/plugin-analytics':
+        specifier: workspace:*
+        version: link:../plugins/analytics
+      '@tomato-player/plugin-chapters':
+        specifier: workspace:*
+        version: link:../plugins/chapters
+      '@tomato-player/plugin-gestures':
+        specifier: workspace:*
+        version: link:../plugins/gestures
+      '@tomato-player/plugin-hotkeys':
+        specifier: workspace:*
+        version: link:../plugins/hotkeys
+      '@tomato-player/plugin-media-session':
+        specifier: workspace:*
+        version: link:../plugins/media-session
+      '@tomato-player/plugin-persist':
+        specifier: workspace:*
+        version: link:../plugins/persist
+      '@tomato-player/plugin-playlist':
+        specifier: workspace:*
+        version: link:../plugins/playlist
+      '@tomato-player/plugin-thumbnails':
+        specifier: workspace:*
+        version: link:../plugins/thumbnails
+      '@tomato-player/provider-hls':
+        specifier: workspace:*
+        version: link:../providers/hls
+      '@tomato-player/skin-campus':
+        specifier: workspace:*
+        version: link:../skins/campus
+      '@tomato-player/skin-cinema':
+        specifier: workspace:*
+        version: link:../skins/cinema
+      '@tomato-player/skin-creator':
+        specifier: workspace:*
+        version: link:../skins/creator
+      '@tomato-player/skin-feed':
+        specifier: workspace:*
+        version: link:../skins/feed
+      '@tomato-player/skin-learn':
+        specifier: workspace:*
+        version: link:../skins/learn
+      '@tomato-player/skin-minimal':
+        specifier: workspace:*
+        version: link:../skins/minimal
+      '@tomato-player/skin-stream':
+        specifier: workspace:*
+        version: link:../skins/stream
+      '@tomato-player/skin-studio':
+        specifier: workspace:*
+        version: link:../skins/studio
+      '@tomato-player/skin-tube':
+        specifier: workspace:*
+        version: link:../skins/tube
+      '@tomato-player/ui':
+        specifier: workspace:*
+        version: link:../ui
+
   packages/ui:
     dependencies:
       '@tomato-player/core':

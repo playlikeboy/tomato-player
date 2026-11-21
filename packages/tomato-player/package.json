@@ -1,0 +1,83 @@
+{
+  "name": "tomato-player",
+  "version": "0.1.0",
+  "description": "Tomato Player — one player, a thousand possibilities. Batteries-included bundle: core, UI, every official skin and plugin, and the <tomato-player> web component.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "./dist/element.*",
+    "./dist/tomato-player.global.js"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/tomato-player.global.js",
+  "jsdelivr": "./dist/tomato-player.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./element": {
+      "types": "./dist/element.d.ts",
+      "import": "./dist/element.js",
+      "require": "./dist/element.cjs"
+    },
+    "./global": "./dist/tomato-player.global.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@tomato-player/core": "workspace:*",
+    "@tomato-player/ui": "workspace:*",
+    "@tomato-player/provider-hls": "workspace:*",
+    "@tomato-player/skin-minimal": "workspace:*",
+    "@tomato-player/skin-cinema": "workspace:*",
+    "@tomato-player/skin-studio": "workspace:*",
+    "@tomato-player/skin-creator": "workspace:*",
+    "@tomato-player/skin-learn": "workspace:*",
+    "@tomato-player/skin-stream": "workspace:*",
+    "@tomato-player/skin-tube": "workspace:*",
+    "@tomato-player/skin-feed": "workspace:*",
+    "@tomato-player/skin-campus": "workspace:*",
+    "@tomato-player/plugin-hotkeys": "workspace:*",
+    "@tomato-player/plugin-gestures": "workspace:*",
+    "@tomato-player/plugin-chapters": "workspace:*",
+    "@tomato-player/plugin-thumbnails": "workspace:*",
+    "@tomato-player/plugin-playlist": "workspace:*",
+    "@tomato-player/plugin-analytics": "workspace:*",
+    "@tomato-player/plugin-media-session": "workspace:*",
+    "@tomato-player/plugin-persist": "workspace:*"
+  },
+  "keywords": [
+    "video",
+    "player",
+    "video-player",
+    "html5-video",
+    "hls",
+    "dash",
+    "web-component",
+    "react",
+    "vue",
+    "svelte",
+    "skins",
+    "tomato-player"
+  ],
+  "homepage": "https://github.com/playlikeboy/tomato-player#readme",
+  "bugs": "https://github.com/playlikeboy/tomato-player/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playlikeboy/tomato-player",
+    "directory": "packages/tomato-player"
+  },
+  "tomato": {
+    "kind": "bundle"
+  }
+}
