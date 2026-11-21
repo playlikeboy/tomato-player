@@ -9,6 +9,7 @@ export default defineConfig({
     alias: {
       '@tomato-player/core': src('core'),
       '@tomato-player/ui': src('ui'),
+      '@tomato-player/react': src('integrations/react'),
     },
   },
   test: {
