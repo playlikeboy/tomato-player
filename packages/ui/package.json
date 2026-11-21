@@ -1,0 +1,24 @@
+{
+  "name": "@tomato-player/ui",
+  "version": "0.1.0",
+  "description": "Accessible, framework-agnostic control primitives for building Tomato Player skins.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" },
+    "./base.css": "./dist/base.css"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --loader .css=text && cp src/base.css dist/base.css",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch --loader .css=text",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": { "@tomato-player/core": "workspace:*" },
+  "repository": { "type": "git", "url": "https://github.com/playlikeboy/tomato-player", "directory": "packages/ui" },
+  "tomato": { "kind": "ui" }
+}
