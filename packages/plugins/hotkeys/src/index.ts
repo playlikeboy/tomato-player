@@ -62,7 +62,7 @@ export const hotkeys = (options: HotkeysOptions = {}) =>
         // Let focused buttons/sliders handle their own Space/Enter/arrows.
         const t = event.target as HTMLElement | null;
         if (t && t !== player.el && t.closest?.('button, [role="slider"], [role="menu"]') && [' ', 'enter', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', 'home', 'end'].includes(event.key.toLowerCase())) return;
-        const action = bindings[event.key.length === 1 ? event.key.toLowerCase() : event.key.toLowerCase()] ?? bindings[event.key];
+        const action = bindings[event.key.toLowerCase()] ?? bindings[event.key];
         if (!action) return;
         event.preventDefault();
         player.activity();
