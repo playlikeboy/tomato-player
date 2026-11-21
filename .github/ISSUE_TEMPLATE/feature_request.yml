@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest a capability for core, a skin, plugin or provider
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API or behavior
+      render: ts
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where should it live?
+      options: [core, ui primitives, a new plugin, a new skin, a provider, a framework binding, docs, not sure]

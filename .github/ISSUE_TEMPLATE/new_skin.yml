@@ -1,0 +1,26 @@
+name: Propose a skin
+description: Share a skin idea or claim one to build
+labels: [skin, community]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Skin name
+      placeholder: aurora
+    validations: { required: true }
+  - type: textarea
+    id: concept
+    attributes:
+      label: Concept
+      description: Who is it for? What makes it different? Mockups or screenshots welcome.
+    validations: { required: true }
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: It uses no third-party logos, fonts, icons or trademarks.
+          required: true
+        - label: If it is inspired by an existing product, I will label it "unofficial, inspired" with no implied affiliation.
+          required: true
+        - label: I want to build it myself.

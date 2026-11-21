@@ -1,0 +1,34 @@
+name: Bug report
+description: Something doesn't work as documented
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect instead?
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: A StackBlitz/CodePen link or a short code sample. The playground (`pnpm playground`) is a great starting point.
+      render: ts
+    validations: { required: true }
+  - type: input
+    id: packages
+    attributes:
+      label: Packages and versions
+      placeholder: "@tomato-player/core@0.1.0, @tomato-player/skin-cinema@0.1.0"
+    validations: { required: true }
+  - type: input
+    id: env
+    attributes:
+      label: Browser / OS / framework
+      placeholder: Safari 18 on iOS 18, Next.js 15
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes:
+      label: Media type
+      placeholder: MP4, HLS (hls.js / native), DASH, live…
