@@ -1,0 +1,22 @@
+{
+  "name": "@tomato-player/vue",
+  "version": "0.1.0",
+  "description": "Vue 3 component for Tomato Player. SSR-safe (Nuxt ready).",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" } },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --external vue",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": { "@tomato-player/core": "workspace:*" },
+  "peerDependencies": { "vue": "^3.3.0" },
+  "devDependencies": { "vue": "^3.5.0" },
+  "repository": { "type": "git", "url": "https://github.com/playlikeboy/tomato-player", "directory": "packages/integrations/vue" },
+  "tomato": { "kind": "integration" }
+}
