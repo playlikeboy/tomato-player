@@ -228,7 +228,7 @@ export function createPlayer(target: string | HTMLElement, options: PlayerOption
   function syncTextTracks() {
     const list = visibleTextTracks();
     const info: TrackInfo[] = list.map((t, id) => ({ id, label: t.label || t.language || `Track ${id + 1}`, language: t.language, kind: t.kind }));
-    const showing = list.findIndex((t) => t.mode === 'showing');
+    const showing = list.findIndex((t) => t.mode !== 'disabled');
     const prev = store.get().textTracks;
     const same = prev.length === info.length && prev.every((t, i) => t.label === info[i]?.label);
     set({ textTracks: same ? prev : info, textTrack: showing });
@@ -439,7 +439,8 @@ export function createPlayer(target: string | HTMLElement, options: PlayerOption
     },
     setTextTrack(index) {
       visibleTextTracks().forEach((t, i) => {
-        t.mode = i === index ? 'showing' : 'disabled';
+        // A skin that draws its own captions provides `captionsRenderer`; cues still fire in 'hidden' mode.
+        t.mode = i === index ? (provided.get('captionsRenderer') ? 'hidden' : 'showing') : 'disabled';
       });
       set({ textTrack: index });
     },
