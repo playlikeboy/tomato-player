@@ -133,7 +133,7 @@
 .tp-live[data-edge] .tp-live-dot { background: var(--tp-accent); }
 
 /* Overlays */
-.tp-big-play { position: absolute; top: 50%; left: 50%; --tp-control-size: 72px; --tp-icon-size: 34px; transform: translate(-50%, -50%); background: var(--tp-surface); border-radius: 50%; }
+.tp-big-play { position: absolute; top: 50%; left: 50%; --tp-control-size: 72px; --tp-icon-size: 34px; width: var(--tp-control-size); padding: 0; transform: translate(-50%, -50%); background: var(--tp-surface); border-radius: 50%; }
 .tp-big-play:hover { background: var(--tp-accent); }
 .tp-big-play:active { transform: translate(-50%, -50%) scale(0.94); }
 .tp[data-started] .tp-big-play { opacity: 0; pointer-events: none; }

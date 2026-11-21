@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tomato Player · Playground</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@tomato-player/core": "/packages/core/dist/index.js",
+          "@tomato-player/ui": "/packages/ui/dist/index.js",
+          "@tomato-player/provider-hls": "/packages/providers/hls/dist/index.js",
+          "@tomato-player/skin-minimal": "/packages/skins/minimal/dist/index.js",
+          "@tomato-player/skin-cinema": "/packages/skins/cinema/dist/index.js",
+          "@tomato-player/skin-studio": "/packages/skins/studio/dist/index.js",
+          "@tomato-player/skin-creator": "/packages/skins/creator/dist/index.js",
+          "@tomato-player/skin-learn": "/packages/skins/learn/dist/index.js",
+          "@tomato-player/skin-stream": "/packages/skins/stream/dist/index.js",
+          "@tomato-player/skin-tube": "/packages/skins/tube/dist/index.js",
+          "@tomato-player/skin-feed": "/packages/skins/feed/dist/index.js",
+          "@tomato-player/skin-campus": "/packages/skins/campus/dist/index.js",
+          "@tomato-player/plugin-hotkeys": "/packages/plugins/hotkeys/dist/index.js",
+          "@tomato-player/plugin-gestures": "/packages/plugins/gestures/dist/index.js",
+          "@tomato-player/plugin-chapters": "/packages/plugins/chapters/dist/index.js",
+          "@tomato-player/plugin-analytics": "/packages/plugins/analytics/dist/index.js",
+          "@tomato-player/plugin-persist": "/packages/plugins/persist/dist/index.js",
+          "@tomato-player/plugin-media-session": "/packages/plugins/media-session/dist/index.js",
+          "hls.js": "https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.mjs"
+        }
+      }
+    </script>
+    <style>
+      :root { color-scheme: dark; --bg: #0c0c0f; --panel: #16161b; --line: #26262e; --fg: #ececf1; --muted: #8b8b98; --accent: #ef4444; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font: 14px/1.5 ui-sans-serif, system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+      header { display: flex; align-items: center; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--line); }
+      header h1 { font-size: 16px; margin: 0; }
+      header a { color: var(--muted); margin-left: auto; text-decoration: none; }
+      main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; padding: 24px; max-width: 1400px; margin: 0 auto; }
+      @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+      aside { display: grid; gap: 20px; align-content: start; }
+      section h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 0 0 8px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      button.opt { padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); cursor: pointer; font: inherit; text-transform: capitalize; }
+      button.opt[aria-pressed='true'] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--panel)); }
+      label { display: flex; align-items: center; gap: 8px; padding: 4px 0; color: var(--fg); }
+      select, input[type='color'] { background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 6px; font: inherit; }
+      pre { margin: 0; padding: 14px; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); overflow: auto; font-size: 12.5px; }
+      #log { height: 180px; overflow: auto; font: 12px/1.6 ui-monospace, monospace; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+      .note { color: var(--muted); font-size: 12px; }
+      #stage { display: grid; gap: 16px; align-content: start; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🍅 Tomato Player · Playground</h1>
+      <span class="note">one player, a thousand possibilities</span>
+      <a href="https://github.com/playlikeboy/tomato-player">GitHub →</a>
+    </header>
+    <main>
+      <div id="stage">
+        <div id="player"></div>
+        <p class="note">Big Buck Bunny © Blender Foundation, <a href="https://creativecommons.org/licenses/by/3.0/" style="color:inherit">CC BY 3.0</a>, via Wikimedia Commons. HLS test stream by Mux.</p>
+        <section>
+          <h2>Code</h2>
+          <pre id="code"></pre>
+        </section>
+      </div>
+      <aside>
+        <section>
+          <h2>Skin</h2>
+          <div class="grid" id="skins"></div>
+          <p class="note">Stream, Tube and Feed are unofficial, platform-inspired designs. No affiliation implied.</p>
+        </section>
+        <section>
+          <h2>Source</h2>
+          <select id="source">
+            <option value="mp4">WebM · Big Buck Bunny (progressive)</option>
+            <option value="hls">HLS · adaptive (hls.js, lazy)</option>
+          </select>
+        </section>
+        <section>
+          <h2>Accent</h2>
+          <input type="color" id="accent" value="#ef4444" />
+          <button class="opt" id="reset-accent" style="margin-left: 6px">skin default</button>
+        </section>
+        <section>
+          <h2>Plugins</h2>
+          <label><input type="checkbox" data-plugin="hotkeys" checked /> hotkeys</label>
+          <label><input type="checkbox" data-plugin="gestures" checked /> gestures</label>
+          <label><input type="checkbox" data-plugin="chapters" checked /> chapters</label>
+          <label><input type="checkbox" data-plugin="persist" /> persist</label>
+          <label><input type="checkbox" data-plugin="analytics" checked /> analytics (log below)</label>
+        </section>
+        <section>
+          <h2>Events</h2>
+          <div id="log" aria-live="off"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script type="module">
+      import { createPlayer } from '@tomato-player/core';
+      import { hls } from '@tomato-player/provider-hls';
+      import { minimal } from '@tomato-player/skin-minimal';
+      import { cinema } from '@tomato-player/skin-cinema';
+      import { studio } from '@tomato-player/skin-studio';
+      import { creator } from '@tomato-player/skin-creator';
+      import { learn } from '@tomato-player/skin-learn';
+      import { stream } from '@tomato-player/skin-stream';
+      import { tube } from '@tomato-player/skin-tube';
+      import { feed } from '@tomato-player/skin-feed';
+      import { campus } from '@tomato-player/skin-campus';
+      import { hotkeys } from '@tomato-player/plugin-hotkeys';
+      import { gestures } from '@tomato-player/plugin-gestures';
+      import { chapters } from '@tomato-player/plugin-chapters';
+      import { analytics } from '@tomato-player/plugin-analytics';
+      import { persist } from '@tomato-player/plugin-persist';
+
+      const skins = {
+        minimal: () => minimal(),
+        cinema: () => cinema({ eyebrow: 'A Tomato Original' }),
+        studio: () => studio({ fps: 24 }),
+        creator: () => creator(),
+        learn: () => learn(),
+        stream: () => stream({ subtitle: 'S1:E1 Spring', onNext: () => log('next episode') }),
+        tube: () => tube({ onNext: () => log('next video'), onTheater: (on) => log(`theater ${on}`) }),
+        feed: () => feed({ autoplayInView: false }),
+        campus: () => campus({ autoplayInView: false }),
+      };
+      const sources = {
+        mp4: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c0/Big_Buck_Bunny_4K.webm/Big_Buck_Bunny_4K.webm.720p.vp9.webm',
+        hls: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+      };
+      const plugins = {
+        hotkeys: () => hotkeys(),
+        gestures: () => gestures(),
+        chapters: () => chapters({ chapters: '/examples/assets/chapters.vtt' }),
+        persist: () => persist(),
+        analytics: () => analytics({ heartbeat: 10000, onEvent: (e) => log(`analytics · ${e.type}${e.percent ? ` ${e.percent}%` : ''}`) }),
+      };
+
+      const params = new URLSearchParams(location.search);
+      const state = { skin: params.get('skin') ?? 'minimal', source: 'mp4', accent: null };
+      const logEl = document.querySelector('#log');
+      function log(msg) {
+        const line = document.createElement('div');
+        line.textContent = `${new Date().toLocaleTimeString()}  ${msg}`;
+        logEl.prepend(line);
+        while (logEl.childElementCount > 80) logEl.lastChild.remove();
+      }
+
+      let player;
+      function build() {
+        player?.destroy();
+        const enabled = [...document.querySelectorAll('[data-plugin]:checked')].map((i) => i.dataset.plugin);
+        player = createPlayer('#player', {
+          src: sources[state.source],
+          title: 'Big Buck Bunny',
+          poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/1280px-Big_buck_bunny_poster_big.jpg',
+          tracks: [
+            { src: '/examples/assets/captions.en.vtt', label: 'English', srclang: 'en' },
+            { src: '/examples/assets/captions.es.vtt', label: 'Español', srclang: 'es' },
+          ],
+          crossOrigin: 'anonymous',
+          providers: [hls()],
+          plugins: enabled.map((name) => plugins[name]()),
+          skin: skins[state.skin](),
+          tokens: state.accent ? { accent: state.accent } : undefined,
+        });
+        for (const type of ['ready', 'play', 'pause', 'ended', 'seeked', 'qualitychange', 'error', 'fullscreenchange'])
+          player.on(type, (d) => log(`${type}${d !== undefined && typeof d !== 'object' ? ` · ${typeof d === 'number' ? d.toFixed?.(1) ?? d : d}` : ''}`));
+        player.on('plugin:chapterchange', (c) => c && log(`chapter · ${c.title}`));
+        window.player = player;
+        renderCode(enabled);
+      }
+
+      function renderCode(enabled) {
+        const name = state.skin;
+        const imports = [
+          `import { createPlayer } from '@tomato-player/core';`,
+          `import { ${name} } from '@tomato-player/skin-${name}';`,
+          state.source === 'hls' ? `import { hls } from '@tomato-player/provider-hls';` : null,
+          ...enabled.map((p) => `import { ${p} } from '@tomato-player/plugin-${p}';`),
+        ].filter(Boolean);
+        document.querySelector('#code').textContent = `${imports.join('\n')}\n\ncreatePlayer('#player', {\n  src: '${state.source === 'hls' ? 'stream.m3u8' : 'movie.mp4'}',${state.source === 'hls' ? '\n  providers: [hls()],' : ''}\n  skin: ${name}(${state.accent ? `{ tokens: { accent: '${state.accent}' } }` : ''}),\n  plugins: [${enabled.map((p) => `${p}()`).join(', ')}],\n});`;
+      }
+
+      const skinGrid = document.querySelector('#skins');
+      for (const name of Object.keys(skins)) {
+        const b = document.createElement('button');
+        b.className = 'opt';
+        b.textContent = name;
+        b.setAttribute('aria-pressed', String(name === state.skin));
+        b.onclick = () => {
+          state.skin = name;
+          skinGrid.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+          history.replaceState(null, '', `?skin=${name}`);
+          build();
+        };
+        skinGrid.append(b);
+      }
+      document.querySelector('#source').onchange = (e) => ((state.source = e.target.value), build());
+      document.querySelector('#accent').oninput = (e) => {
+        state.accent = e.target.value;
+        player.el.style.setProperty('--tp-accent', state.accent);
+        renderCode([...document.querySelectorAll('[data-plugin]:checked')].map((i) => i.dataset.plugin));
+      };
+      document.querySelector('#reset-accent').onclick = () => ((state.accent = null), build());
+      document.querySelectorAll('[data-plugin]').forEach((i) => (i.onchange = build));
+      build();
+    </script>
+  </body>
+</html>
