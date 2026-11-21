@@ -8,15 +8,44 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" } },
-  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify --external dashjs",
     "typecheck": "tsc --noEmit -p ."
   },
-  "dependencies": { "@tomato-player/core": "workspace:*" },
-  "peerDependencies": { "dashjs": "^4.7.0 || ^5.0.0" },
-  "peerDependenciesMeta": { "dashjs": { "optional": true } },
-  "repository": { "type": "git", "url": "https://github.com/playlikeboy/tomato-player", "directory": "packages/providers/dash" },
-  "tomato": { "kind": "provider" }
+  "dependencies": {
+    "@tomato-player/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "dashjs": "^4.7.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "dashjs": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playlikeboy/tomato-player",
+    "directory": "packages/providers/dash"
+  },
+  "tomato": {
+    "kind": "provider"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "playlikeboy",
+  "homepage": "https://playlikeboy.github.io/tomato-player/",
+  "bugs": "https://github.com/playlikeboy/tomato-player/issues"
 }

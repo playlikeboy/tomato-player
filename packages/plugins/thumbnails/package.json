@@ -16,7 +16,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",
@@ -38,5 +39,11 @@
   },
   "tomato": {
     "kind": "plugin"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "playlikeboy",
+  "homepage": "https://playlikeboy.github.io/tomato-player/",
+  "bugs": "https://github.com/playlikeboy/tomato-player/issues"
 }

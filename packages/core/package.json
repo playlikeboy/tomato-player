@@ -15,13 +15,36 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --minify",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "typecheck": "tsc --noEmit -p ."
   },
-  "keywords": ["video", "player", "html5", "media", "hls", "dash", "tomato-player"],
-  "repository": { "type": "git", "url": "https://github.com/playlikeboy/tomato-player", "directory": "packages/core" },
-  "tomato": { "kind": "core" }
+  "keywords": [
+    "video",
+    "player",
+    "html5",
+    "media",
+    "hls",
+    "dash",
+    "tomato-player"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/playlikeboy/tomato-player",
+    "directory": "packages/core"
+  },
+  "tomato": {
+    "kind": "core"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "playlikeboy",
+  "homepage": "https://playlikeboy.github.io/tomato-player/",
+  "bugs": "https://github.com/playlikeboy/tomato-player/issues"
 }

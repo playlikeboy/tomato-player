@@ -21,7 +21,8 @@
     "docs:llms": "node scripts/build-llms.mjs",
     "check": "pnpm build && pnpm typecheck && pnpm test && pnpm validate && pnpm size",
     "site": "node scripts/build-site.mjs",
-    "site:dev": "SITE_BASE=/site-dist/ node scripts/build-site.mjs && node scripts/serve.mjs"
+    "site:dev": "SITE_BASE=/site-dist/ node scripts/build-site.mjs && node scripts/serve.mjs",
+    "release": "pnpm run check && pnpm -r publish --access public --no-git-checks"
   },
   "devDependencies": {
     "@types/react-dom": "^19.3.0",
