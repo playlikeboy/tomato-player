@@ -16,7 +16,7 @@ A tiny core, swappable skins, community plugins, HLS/DASH on demand, and first-c
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)
 ![a11y](https://img.shields.io/badge/a11y-WCAG%202.2%20AA%20target-7c3aed.svg)
 
-[Getting started](docs/getting-started.md) · [API](docs/api/player.md) · [Skins](docs/guides/skins.md) · [Plugins](docs/guides/plugins.md) · [Playground](#playground) · [Research](docs/research/README.md) · [llms.txt](llms.txt)
+**[🌐 Website](https://playlikeboy.github.io/tomato-player/)** · **[▶ Live skin gallery](https://playlikeboy.github.io/tomato-player/gallery/)** · **[🧪 Playground](https://playlikeboy.github.io/tomato-player/playground/)** · [📚 Docs](https://playlikeboy.github.io/tomato-player/docs/) · [Research](https://playlikeboy.github.io/tomato-player/docs/research/) · [llms.txt](https://playlikeboy.github.io/tomato-player/llms.txt)
 
 <img src=".github/assets/skins.png" alt="The nine Tomato Player skins: Minimal, Cinema, Studio, Creator, Learn, Campus, Stream, Tube and Feed" />
 
@@ -162,6 +162,10 @@ The `<video>` element stays the single source of truth. Read [Architecture](docs
 
 ## Playground
 
+Try it online: **[https://playlikeboy.github.io/tomato-player/playground/](https://playlikeboy.github.io/tomato-player/playground/)**. Every skin is also playable side by side in the **[gallery](https://playlikeboy.github.io/tomato-player/gallery/)**.
+
+Or run it locally:
+
 ```sh
 git clone https://github.com/playlikeboy/tomato-player && cd tomato-player
 pnpm install && pnpm playground
@@ -172,7 +176,7 @@ Switch skins, sources (progressive and HLS), accent colors and plugins live, wat
 
 ## Documentation
 
-Documentation is Markdown-first, so it works on GitHub, in editors and in AI assistants:
+Read it on the **[website](https://playlikeboy.github.io/tomato-player/docs/)** (with search), or browse the Markdown here. It is Markdown-first, so it works on GitHub, in editors and in AI assistants:
 
 - **Learn:** [Getting started](docs/getting-started.md) · [Architecture](docs/concepts/architecture.md) · [Frameworks](docs/guides/frameworks.md)
 - **Reference:** [Player API](docs/api/player.md) · [UI primitives](docs/api/ui.md)
@@ -189,6 +193,7 @@ Skins, plugins, providers, translations, docs and bug reports are all welcome.
 ```sh
 pnpm install
 pnpm run check   # build, typecheck, test, validate manifests, size budgets
+pnpm site:dev    # build and serve the website locally
 pnpm new skin aurora "My first skin"
 ```
 

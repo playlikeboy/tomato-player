@@ -67,3 +67,11 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) (`feat(skins): 
 ## Code of conduct
 
 Be kind. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## Website
+
+The site at https://playlikeboy.github.io/tomato-player/ is generated from `docs/`, `examples/` and the built packages by `scripts/build-site.mjs`, and deployed by `.github/workflows/pages.yml` on every push to `main`. Pull requests get a downloadable `site-preview-pr-<n>` artifact.
+
+```sh
+pnpm build && pnpm site:dev   # http://localhost:5173/site-dist/
+```

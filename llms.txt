@@ -14,6 +14,7 @@ Key facts for code generation:
 
 ## Docs
 
+- [Website](https://playlikeboy.github.io/tomato-player/): docs with search, live skin gallery, playground
 - [Getting started](https://github.com/playlikeboy/tomato-player/blob/main/docs/getting-started.md): install, first player, CDN, frameworks
 - [Player API](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/player.md): options, state, methods, events, error codes
 - [UI primitives](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/ui.md): controls for building skins
