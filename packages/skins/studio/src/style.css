@@ -1,0 +1,32 @@
+.tp[data-skin='studio'] {
+  --tp-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --tp-bg: #0b0d10;
+  --tp-surface: #15181d;
+  --tp-radius: 4px;
+  --tp-control-size: 34px;
+  --tp-icon-size: 18px;
+  --tp-slider-height: 6px;
+  --tp-track: #2a2f37;
+  --tp-thumb: #fff;
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #262a31;
+  border-radius: 6px;
+}
+.tp[data-skin='studio'] .tp-media { position: relative; inset: auto; aspect-ratio: var(--tp-aspect-ratio, 16/9); height: auto; }
+.tp[data-skin='studio'][data-fullscreen] .tp-media { flex: 1; aspect-ratio: auto; min-height: 0; }
+.tp[data-skin='studio'] .tp-skin { position: static; pointer-events: auto; }
+.tp[data-skin='studio'] .tp-studio-surface { position: absolute; inset: 0 0 auto 0; aspect-ratio: var(--tp-aspect-ratio, 16/9); }
+.tp[data-skin='studio'][data-fullscreen] .tp-studio-surface { bottom: 80px; aspect-ratio: auto; }
+.tp[data-skin='studio'] .tp-spinner { top: 40%; }
+.tp[data-skin='studio'] .tp-controls { position: relative; display: grid; gap: 4px; padding: 6px 8px 8px; background: var(--tp-surface); border-top: 1px solid #262a31; }
+.tp[data-skin='studio'] .tp-slider-track { border-radius: 2px; }
+.tp[data-skin='studio'] .tp-slider-thumb { width: 3px; height: 18px; margin-left: -1.5px; border-radius: 1px; transform: none; }
+.tp[data-skin='studio'] .tp-timecode { padding: 4px 10px; margin-left: 6px; border-radius: 3px; background: #000; color: var(--tp-accent); font-size: 13px; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+.tp[data-skin='studio'] .tp-tc-duration, .tp[data-skin='studio'] .tp-tc-sep { color: #6b7280; }
+.tp[data-skin='studio'] .tp-ab { font-size: 12px; padding: 0 10px; }
+.tp[data-skin='studio'] .tp-ab .tp-button-text { margin: 0; }
+.tp[data-skin='studio'] .tp-ab[data-state='a'] { color: #facc15; }
+.tp[data-skin='studio'] .tp-ab[data-state='ab'] { color: var(--tp-accent); background: rgba(56, 189, 248, 0.12); }
+.tp[data-skin='studio'][data-size='sm'] .tp-frame, .tp[data-skin='studio'][data-size='sm'] .tp-ab { display: none; }

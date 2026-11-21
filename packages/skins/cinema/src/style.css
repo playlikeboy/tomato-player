@@ -1,0 +1,32 @@
+.tp[data-skin='cinema'] {
+  --tp-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --tp-control-size: 44px;
+  --tp-icon-size: 24px;
+  --tp-track: rgba(255, 255, 255, 0.2);
+  --tp-surface: rgba(12, 10, 8, 0.94);
+  --tp-thumb: #fff;
+  border-radius: 14px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+.tp[data-skin='cinema'] .tp-cinema-top {
+  position: absolute; inset: 0 0 auto 0; padding: clamp(14px, 4cqw, 36px) clamp(16px, 5cqw, 48px) 60px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
+}
+.tp[data-skin='cinema'] .tp-eyebrow { color: var(--tp-accent); font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 6px; }
+.tp[data-skin='cinema'] .tp-title { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(18px, 3.4cqw, 34px); font-weight: 400; letter-spacing: 0.01em; }
+.tp[data-skin='cinema'] .tp-controls {
+  position: absolute; inset: auto 0 0 0; display: grid; gap: 6px; padding: 80px clamp(12px, 4cqw, 40px) clamp(10px, 2.4cqw, 24px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 10%, transparent);
+}
+.tp[data-skin='cinema'] .tp-cinema-progress { gap: 14px; }
+.tp[data-skin='cinema'] .tp-time-remaining { color: var(--tp-muted-fg); min-width: 5ch; text-align: right; }
+.tp[data-skin='cinema'] .tp-slider-fill { background: linear-gradient(90deg, #c9862c, var(--tp-accent) 70%, #fde7b0); }
+.tp[data-skin='cinema'] .tp-time-slider:hover .tp-slider-track { height: 6px; }
+.tp[data-skin='cinema'] .tp-big-play {
+  --tp-control-size: 88px; --tp-icon-size: 36px; background: transparent; border: 1.5px solid rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+}
+.tp[data-skin='cinema'] .tp-big-play:hover { background: var(--tp-accent); border-color: var(--tp-accent); color: #111; }
+.tp[data-skin='cinema'] .tp-button:hover { background: transparent; color: var(--tp-accent); }
+.tp[data-skin='cinema']:not([data-started]) .tp-cinema-top { opacity: 1; }
+.tp[data-skin='cinema'] .tp-media::cue { font-family: Georgia, serif; background: transparent; text-shadow: 0 2px 6px #000, 0 0 2px #000; }
