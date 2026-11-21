@@ -16,7 +16,7 @@ A tiny core, swappable skins, community plugins, HLS/DASH on demand, and first-c
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)
 ![a11y](https://img.shields.io/badge/a11y-WCAG%202.2%20AA%20target-7c3aed.svg)
 
-**[🌐 Website](https://playlikeboy.github.io/tomato-player/)** · **[▶ Live skin gallery](https://playlikeboy.github.io/tomato-player/gallery/)** · **[🧪 Playground](https://playlikeboy.github.io/tomato-player/playground/)** · [📚 Docs](https://playlikeboy.github.io/tomato-player/docs/) · [Research](https://playlikeboy.github.io/tomato-player/docs/research/) · [llms.txt](https://playlikeboy.github.io/tomato-player/llms.txt)
+**[🌐 Website](https://playlikeboy.github.io/tomato-player/)** · **[▶ Skin gallery](https://playlikeboy.github.io/tomato-player/skins/)** · **[🎬 Demos](https://playlikeboy.github.io/tomato-player/demos/)** · **[🧪 Playground](https://playlikeboy.github.io/tomato-player/playground/)** · [📚 Docs](https://playlikeboy.github.io/tomato-player/docs/) · [Research](https://playlikeboy.github.io/tomato-player/docs/research/) · [llms.txt](https://playlikeboy.github.io/tomato-player/llms.txt)
 
 <img src=".github/assets/skins.png" alt="The nine Tomato Player skins: Minimal, Cinema, Studio, Creator, Learn, Campus, Stream, Tube and Feed" />
 
@@ -162,7 +162,7 @@ The `<video>` element stays the single source of truth. Read [Architecture](docs
 
 ## Playground
 
-Try it online: **[https://playlikeboy.github.io/tomato-player/playground/](https://playlikeboy.github.io/tomato-player/playground/)**. Every skin is also playable side by side in the **[gallery](https://playlikeboy.github.io/tomato-player/gallery/)**.
+Try it online: **[https://playlikeboy.github.io/tomato-player/playground/](https://playlikeboy.github.io/tomato-player/playground/)**. Every skin is also playable side by side in the **[skin gallery](https://playlikeboy.github.io/tomato-player/skins/)**, and every feature has a [live demo](https://playlikeboy.github.io/tomato-player/demos/).
 
 Or run it locally:
 
@@ -193,7 +193,7 @@ Skins, plugins, providers, translations, docs and bug reports are all welcome.
 ```sh
 pnpm install
 pnpm run check   # build, typecheck, test, validate manifests, size budgets
-pnpm site:dev    # build and serve the website locally
+pnpm site:dev    # run the website (apps/website) locally
 pnpm new skin aurora "My first skin"
 ```
 

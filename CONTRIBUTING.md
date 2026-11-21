@@ -70,8 +70,8 @@ Be kind. See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Website
 
-The site at https://playlikeboy.github.io/tomato-player/ is generated from `docs/`, `examples/` and the built packages by `scripts/build-site.mjs`, and deployed by `.github/workflows/pages.yml` on every push to `main`. Pull requests get a downloadable `site-preview-pr-<n>` artifact.
+The site at https://playlikeboy.github.io/tomato-player/ is a Next.js app in `apps/website`, built with the [Astryx](https://github.com/meta/astryx) design system (custom `tomato` theme in `apps/website/themes/`). It renders `docs/` and the root Markdown files at build time, runs live demos against the workspace packages and builds a [Pagefind](https://pagefind.app) search index. It is deployed by `.github/workflows/pages.yml` on every push to `main`. Pull requests get a downloadable `site-preview-pr-<n>` artifact.
 
 ```sh
-pnpm build && pnpm site:dev   # http://localhost:5173/site-dist/
+pnpm site:dev   # builds the packages, then http://localhost:3000
 ```
