@@ -268,8 +268,20 @@ export function createPlayer(target: string | HTMLElement, options: PlayerOption
     if (store.get().idle) set({ idle: false });
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {
-      if (!store.get().paused) set({ idle: true });
+      if (store.get().paused) return;
+      // Keep controls visible while a keyboard user is focused on one of them.
+      if (keyboardFocusInside()) return activity();
+      set({ idle: true });
     }, opts.idleTimeout);
+  }
+  function keyboardFocusInside(): boolean {
+    const active = document.activeElement;
+    if (!active || active === root || !root.contains(active)) return false;
+    try {
+      return active.matches(':focus-visible');
+    } catch {
+      return true;
+    }
   }
   for (const type of ['pointermove', 'pointerdown', 'keydown', 'focusin']) listen(root, type, activity);
   listen(root, 'pointerleave', () => {
