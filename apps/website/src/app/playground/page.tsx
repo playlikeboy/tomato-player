@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/JsonLd';
 import { Playground } from '@/components/pages/Playground';
+import { assetSize } from '@/lib/images';
+import { PAGE_META } from '@/lib/meta';
 import { breadcrumbs, pageMeta } from '@/lib/seo';
+import { absolute } from '@/lib/site';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Playground: build and configure a video player online',
-  description:
-    'Configure Tomato Player in your browser: switch between 9 skins, WebM, HLS and DASH sources, accent colors and plugins, watch the event log and copy the generated code.',
+  ...PAGE_META.playground,
   path: '/playground/',
   keywords: ['video player playground', 'video player generator', 'video player configurator'],
+  image: { url: absolute('/assets/playground.png'), ...assetSize('playground.png'), alt: 'Tomato Player playground' },
 });
 
 export default function Page() {

@@ -1,0 +1,210 @@
+{
+  "$comment": "Docs table of contents. Read by src/lib/docs.ts (routes, nav, metadata) and scripts/prepare.mjs (Markdown mirrors). `file` is relative to the repo root. `metaTitle` stays under 45 characters so the page title with the ' · Tomato Player' suffix fits in 60. `description` is answer-first, 120 to 160 characters.",
+  "sections": [
+    {
+      "section": "Start here",
+      "items": [
+        {
+          "slug": "getting-started",
+          "file": "docs/getting-started.md",
+          "title": "Getting started",
+          "metaTitle": "Getting started: install and first player",
+          "description": "Install Tomato Player from npm or the CDN, create your first video player with a skin, add HLS streaming and plugins, and use it in React, Vue or Svelte."
+        },
+        {
+          "slug": "concepts/architecture",
+          "file": "docs/concepts/architecture.md",
+          "title": "Architecture",
+          "metaTitle": "Architecture of a modular video player",
+          "description": "How Tomato Player is built: a dependency-free core with a state store, providers for playback engines, and separate skins, plugins and framework bindings."
+        },
+        {
+          "slug": "troubleshooting",
+          "file": "docs/troubleshooting.md",
+          "title": "Troubleshooting",
+          "metaTitle": "Troubleshooting video playback",
+          "description": "Fixes for common Tomato Player problems: blocked autoplay, play() errors, iPhone fullscreen, NO_PROVIDER, cross-origin captions, SSR hydration and strict CSP."
+        },
+        {
+          "slug": "migration",
+          "file": "docs/migration/README.md",
+          "title": "Migration",
+          "metaTitle": "Migrate from Plyr, Video.js or Vidstack",
+          "description": "Migration guides that map Plyr, Video.js, Vidstack and ReactPlayer options, events and APIs to their Tomato Player equivalents, with code side by side."
+        }
+      ]
+    },
+    {
+      "section": "Guides",
+      "items": [
+        {
+          "slug": "guides/skins",
+          "file": "docs/guides/skins.md",
+          "title": "Skins",
+          "metaTitle": "Video player skins and theming",
+          "description": "Tomato Player ships nine swappable skins. Pick one, pass its options, theme it with --tp-* design tokens and CSS state attributes, or switch it at runtime."
+        },
+        {
+          "slug": "guides/plugins",
+          "file": "docs/guides/plugins.md",
+          "title": "Plugins",
+          "metaTitle": "Video player plugins guide",
+          "description": "Tomato Player plugins add hotkeys, touch gestures, chapters, seek thumbnails, playlists, QoE analytics, Media Session and saved settings. Options and usage."
+        },
+        {
+          "slug": "guides/streaming",
+          "file": "docs/guides/streaming.md",
+          "title": "Streaming (HLS & DASH)",
+          "metaTitle": "HLS and DASH streaming, live and DRM",
+          "description": "Stream HLS with hls.js and MPEG-DASH with dash.js in Tomato Player. Both engines load lazily. Covers quality switching, live and DVR, and DRM configuration."
+        },
+        {
+          "slug": "guides/frameworks",
+          "file": "docs/guides/frameworks.md",
+          "title": "React, Vue & Svelte",
+          "metaTitle": "React, Vue, Svelte video player setup",
+          "description": "Use Tomato Player in React and Next.js, Vue and Nuxt, Svelte and SvelteKit, or any framework through the <tomato-player> web component. SSR-safe bindings."
+        },
+        {
+          "slug": "guides/accessibility",
+          "file": "docs/guides/accessibility.md",
+          "title": "Accessibility",
+          "metaTitle": "Accessible video player (WCAG 2.2 AA)",
+          "description": "Tomato Player targets WCAG 2.2 AA in every official skin: labelled buttons and sliders, visible focus, captions, a full keyboard map and reduced-motion support."
+        }
+      ]
+    },
+    {
+      "section": "Extend",
+      "items": [
+        {
+          "slug": "guides/custom-skins",
+          "file": "docs/guides/custom-skins.md",
+          "title": "Custom skins guide",
+          "metaTitle": "Custom video player skins: full guide",
+          "description": "The complete guide to Tomato Player skins: theme with tokens, override CSS safely, build a skin from UI primitives, test it and publish it to npm. With example."
+        },
+        {
+          "slug": "guides/create-a-skin",
+          "file": "docs/guides/create-a-skin.md",
+          "title": "Create a skin",
+          "metaTitle": "Create a skin in the monorepo",
+          "description": "The short workflow for adding a skin to the Tomato Player monorepo: scaffold it with pnpm new, compose controls with createSkin, scope the CSS and validate it."
+        },
+        {
+          "slug": "guides/create-a-plugin",
+          "file": "docs/guides/create-a-plugin.md",
+          "title": "Create a plugin",
+          "metaTitle": "Create a video player plugin",
+          "description": "Write a Tomato Player plugin with definePlugin: a setup() function that uses the player API and events, returns a typed API and cleans up everything it starts."
+        },
+        {
+          "slug": "guides/create-a-provider",
+          "file": "docs/guides/create-a-provider.md",
+          "title": "Create a provider",
+          "metaTitle": "Create a playback provider",
+          "description": "Providers connect Tomato Player to a playback engine or platform such as Shaka, mpegts.js or an iframe API. Implement canPlay and create, and lazy-load it."
+        }
+      ]
+    },
+    {
+      "section": "API reference",
+      "items": [
+        {
+          "slug": "api/player",
+          "file": "docs/api/player.md",
+          "title": "Player API",
+          "metaTitle": "Player API: options, state, events",
+          "description": "Reference for createPlayer in Tomato Player: every option with its default, the state object, methods such as seek and setSkin, typed events and error codes."
+        },
+        {
+          "slug": "api/ui",
+          "file": "docs/api/ui.md",
+          "title": "UI primitives",
+          "metaTitle": "UI primitives for video player skins",
+          "description": "Reference for @tomato-player/ui: accessible buttons, sliders, menus, overlays, captions and layout helpers that every Tomato Player skin is built from."
+        }
+      ]
+    },
+    {
+      "section": "Project",
+      "items": [
+        {
+          "slug": "roadmap",
+          "file": "docs/roadmap.md",
+          "title": "Roadmap",
+          "metaTitle": "Roadmap",
+          "description": "What shipped in Tomato Player 0.1 and what comes next, prioritised from the research collection: P0 items first, then P1 and exploratory P2 work."
+        },
+        {
+          "slug": "changelog",
+          "file": "CHANGELOG.md",
+          "title": "Changelog",
+          "metaTitle": "Changelog",
+          "description": "Release notes for Tomato Player. Version 0.1.0 is the first public release: core engine, UI primitives, nine skins, eight plugins, HLS and DASH, bindings."
+        },
+        {
+          "slug": "contributing",
+          "file": "CONTRIBUTING.md",
+          "title": "Contributing",
+          "metaTitle": "Contributing to Tomato Player",
+          "description": "How to contribute to Tomato Player: set up the monorepo, scaffold skins and plugins, run the build, tests, validation and size checks, and open a pull request."
+        },
+        {
+          "slug": "security",
+          "file": "SECURITY.md",
+          "title": "Security",
+          "metaTitle": "Security policy",
+          "description": "Tomato Player security policy: which versions receive fixes during 0.x, how to report a vulnerability privately through GitHub advisories, and scope notes."
+        },
+        {
+          "slug": "code-of-conduct",
+          "file": "CODE_OF_CONDUCT.md",
+          "title": "Code of conduct",
+          "metaTitle": "Code of conduct",
+          "description": "Tomato Player follows the Contributor Covenant 2.1. Be welcoming and respectful in issues, pull requests and discussions, and report problems privately."
+        }
+      ]
+    },
+    {
+      "section": "Research",
+      "items": [
+        {
+          "slug": "research",
+          "file": "docs/research/README.md",
+          "title": "Overview",
+          "metaTitle": "Web video player research",
+          "description": "Research behind Tomato Player, with sources linked inline: the player landscape, developer pain points, opportunities and the third-party integration strategy."
+        },
+        {
+          "slug": "research/landscape",
+          "file": "docs/research/landscape.md",
+          "title": "Player landscape",
+          "metaTitle": "Web video player landscape (2026)",
+          "description": "A sourced snapshot of 14 web video players and engines plus 12 building blocks, comparing license, latest version, maintenance status and bundle size."
+        },
+        {
+          "slug": "research/developer-pain-points",
+          "file": "docs/research/developer-pain-points.md",
+          "title": "Developer pain points",
+          "metaTitle": "Developer pain points with video players",
+          "description": "Fourteen recurring problems developers report with web video players, each with linked evidence from issues and docs and the Tomato Player design decision."
+        },
+        {
+          "slug": "research/opportunities",
+          "file": "docs/research/opportunities.md",
+          "title": "Opportunities",
+          "metaTitle": "Video player opportunities",
+          "description": "Opportunities and differentiators for a new web video player, ranked P0 to P2 against what Video.js 10 and other players already ship, with sources."
+        },
+        {
+          "slug": "research/integration-strategy",
+          "file": "docs/research/integration-strategy.md",
+          "title": "Integration strategy",
+          "metaTitle": "Third-party integration strategy",
+          "description": "How Tomato Player integrates hls.js, dash.js and other engines: optional peer dependencies behind provider and plugin interfaces, loaded only when needed."
+        }
+      ]
+    }
+  ]
+}

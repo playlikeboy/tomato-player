@@ -3,7 +3,10 @@ import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/JsonLd';
 import { SkinDetail } from '@/components/pages/Skins';
 import { fmtKb, sizeOf } from '@/lib/packages';
-import { breadcrumbs, pageMeta, softwareLd } from '@/lib/seo';
+import { lastModified } from '@/lib/dates';
+import { assetSize } from '@/lib/images';
+import { SKIN_META } from '@/lib/meta';
+import { breadcrumbs, packageLd, pageMeta } from '@/lib/seo';
 import { SKINS, absolute } from '@/lib/site';
 
 export const dynamicParams = false;
@@ -15,11 +18,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const skin = SKINS.find((s) => s.slug === slug)!;
   return pageMeta({
-    title: `${skin.name} skin — ${skin.summary.replace(/\.$/, '')}`,
-    description: `${skin.description.slice(0, 150)}`,
+    ...SKIN_META[skin.slug],
     path: `/skins/${skin.slug}/`,
     keywords: [`${skin.name.toLowerCase()} video player skin`, ...skin.features.map((f) => f.toLowerCase())],
-    image: absolute(`/assets/skin-${skin.slug}.png`),
+    image: { url: absolute(`/assets/skin-${skin.slug}.png`), ...assetSize(`skin-${skin.slug}.png`), alt: `${skin.name} skin for Tomato Player` },
   });
 }
 
@@ -35,11 +37,14 @@ export default async function Page({ params }: Props) {
             ['Skins', '/skins/'],
             [skin.name, `/skins/${skin.slug}/`],
           ]),
-          softwareLd({
-            name: `@tomato-player/skin-${skin.slug}`,
+          packageLd(`@tomato-player/skin-${skin.slug}`, {
             description: skin.description,
             url: absolute(`/skins/${skin.slug}/`),
             image: absolute(`/assets/skin-${skin.slug}.png`),
+            screenshot: absolute(`/assets/skin-${skin.slug}.png`),
+            applicationSubCategory: 'Video player skin',
+            featureList: skin.features,
+            dateModified: lastModified(`packages/skins/${skin.slug}`).toISOString(),
           }),
         ]}
       />

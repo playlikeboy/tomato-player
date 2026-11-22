@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/JsonLd';
 import { Doc } from '@/components/pages/Doc';
 import { DOCS, findDoc, loadDoc, neighbours } from '@/lib/docs';
-import { breadcrumbs, pageMeta } from '@/lib/seo';
-import { SITE, absolute } from '@/lib/site';
+import { firstAdded } from '@/lib/dates';
+import { articleLd, breadcrumbs, pageMeta } from '@/lib/seo';
 
 export const dynamicParams = false;
 export const generateStaticParams = () => DOCS.map((d) => ({ slug: d.slug }));
@@ -15,11 +15,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const doc = loadDoc(findDoc(slug)!);
   return pageMeta({
-    title: `${doc.title} — ${doc.section}`,
+    title: doc.metaTitle ?? `${doc.title} — ${doc.section}`,
     description: doc.description,
     path: `/docs/${slug.join('/')}/`,
     type: 'article',
     keywords: [doc.title.toLowerCase(), `tomato player ${doc.title.toLowerCase()}`],
+    markdown: doc.markdown,
+    modified: doc.updated,
   });
 }
 
@@ -37,19 +39,16 @@ export default async function Page({ params }: Props) {
             ['Docs', '/docs/'],
             [doc.title, path],
           ]),
-          {
-            '@context': 'https://schema.org',
-            '@type': 'TechArticle',
-            headline: doc.title,
+          articleLd({
+            title: doc.title,
             description: doc.description,
-            url: absolute(path),
-            wordCount: doc.words,
-            articleSection: doc.section,
-            inLanguage: 'en',
-            isPartOf: { '@type': 'WebSite', name: SITE.name, url: absolute('/') },
-            author: { '@type': 'Person', name: SITE.author.name, url: SITE.author.url },
-            about: { '@type': 'SoftwareSourceCode', name: SITE.name, codeRepository: SITE.repo },
-          },
+            path,
+            section: doc.section,
+            words: doc.words,
+            modified: doc.updated,
+            published: firstAdded(doc.file),
+            markdown: doc.markdown,
+          }),
         ]}
       />
       <Doc

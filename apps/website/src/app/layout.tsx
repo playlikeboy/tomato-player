@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/JsonLd';
 import { Shell } from '@/components/Shell';
 import { DOC_SECTIONS } from '@/lib/docs';
 import { SITE, absolute, asset } from '@/lib/site';
+import { PERSON, SOFTWARE_ID, WEBSITE_ID } from '@/lib/seo';
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${SITE.url}/`),
@@ -49,11 +50,13 @@ export const viewport: Viewport = {
 const websiteLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': WEBSITE_ID,
   name: SITE.name,
   url: absolute('/'),
   description: SITE.description,
   inLanguage: 'en',
-  publisher: { '@type': 'Person', name: SITE.author.name, url: SITE.author.url },
+  publisher: PERSON,
+  about: { '@type': 'SoftwareApplication', '@id': SOFTWARE_ID, name: SITE.name, url: absolute('/') },
 };
 
 // Apply the saved color mode before first paint, so a light-mode visitor never sees a dark flash.

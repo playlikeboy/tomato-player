@@ -2,6 +2,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, normalize, relative, resolve } from 'node:path';
 import { SITE } from './site';
+import toc from './toc.json';
+import { lastModified } from './dates';
 
 const ROOT = resolve(process.cwd(), '../..');
 
@@ -10,73 +12,30 @@ export interface DocEntry {
   file: string;
   section: string;
   title?: string;
+  /** Short title for <title>, kept under 45 characters. */
+  metaTitle?: string;
+  /** Answer-first summary for meta description and listings (120 to 160 characters). */
+  summary?: string;
 }
 
-/** Ordered table of contents. `file` is relative to the repo root. */
-const TOC: { section: string; items: [string, string, string?][] }[] = [
-  {
-    section: 'Start here',
-    items: [
-      ['getting-started', 'docs/getting-started.md', 'Getting started'],
-      ['concepts/architecture', 'docs/concepts/architecture.md', 'Architecture'],
-      ['troubleshooting', 'docs/troubleshooting.md', 'Troubleshooting'],
-      ['migration', 'docs/migration/README.md', 'Migration'],
-    ],
-  },
-  {
-    section: 'Guides',
-    items: [
-      ['guides/skins', 'docs/guides/skins.md', 'Skins'],
-      ['guides/plugins', 'docs/guides/plugins.md', 'Plugins'],
-      ['guides/streaming', 'docs/guides/streaming.md', 'Streaming (HLS & DASH)'],
-      ['guides/frameworks', 'docs/guides/frameworks.md', 'React, Vue & Svelte'],
-      ['guides/accessibility', 'docs/guides/accessibility.md', 'Accessibility'],
-    ],
-  },
-  {
-    section: 'Extend',
-    items: [
-      ['guides/create-a-skin', 'docs/guides/create-a-skin.md', 'Create a skin'],
-      ['guides/create-a-plugin', 'docs/guides/create-a-plugin.md', 'Create a plugin'],
-      ['guides/create-a-provider', 'docs/guides/create-a-provider.md', 'Create a provider'],
-    ],
-  },
-  {
-    section: 'API reference',
-    items: [
-      ['api/player', 'docs/api/player.md', 'Player API'],
-      ['api/ui', 'docs/api/ui.md', 'UI primitives'],
-    ],
-  },
-  {
-    section: 'Project',
-    items: [
-      ['roadmap', 'docs/roadmap.md', 'Roadmap'],
-      ['changelog', 'CHANGELOG.md', 'Changelog'],
-      ['contributing', 'CONTRIBUTING.md', 'Contributing'],
-      ['security', 'SECURITY.md', 'Security'],
-      ['code-of-conduct', 'CODE_OF_CONDUCT.md', 'Code of conduct'],
-    ],
-  },
-  {
-    section: 'Research',
-    items: [
-      ['research', 'docs/research/README.md', 'Overview'],
-      ['research/landscape', 'docs/research/landscape.md', 'Player landscape'],
-      ['research/developer-pain-points', 'docs/research/developer-pain-points.md', 'Developer pain points'],
-      ['research/opportunities', 'docs/research/opportunities.md', 'Opportunities'],
-      ['research/integration-strategy', 'docs/research/integration-strategy.md', 'Integration strategy'],
-    ],
-  },
-];
+interface TocItem {
+  slug: string;
+  file: string;
+  title?: string;
+  metaTitle?: string;
+  description?: string;
+}
+
+/** Ordered table of contents, shared with scripts/prepare.mjs (Markdown mirrors). */
+const TOC: { section: string; items: TocItem[] }[] = toc.sections;
 
 export const DOCS: DocEntry[] = TOC.flatMap(({ section, items }) =>
-  items.map(([slug, file, title]) => ({ slug: slug.split('/'), file, section, title })),
+  items.map(({ slug, file, title, metaTitle, description }) => ({ slug: slug.split('/'), file, section, title, metaTitle, summary: description })),
 );
 
 export const DOC_SECTIONS = TOC.map(({ section, items }) => ({
   section,
-  items: items.map(([slug, file, title]) => ({ href: `/docs/${slug}/`, title: title ?? slug, file })),
+  items: items.map(({ slug, file, title }) => ({ href: `/docs/${slug}/`, title: title ?? slug, file })),
 }));
 
 const byFile = new Map(DOCS.map((d) => [normalize(d.file), d]));
@@ -109,6 +68,20 @@ export interface LoadedDoc extends DocEntry {
   body: string;
   editUrl: string;
   words: number;
+  /** Last change of the source file (git, else file mtime). */
+  updated: Date;
+  /** Site path of the raw Markdown mirror written by scripts/prepare.mjs. */
+  markdown: string;
+}
+
+/** Site path of a doc's Markdown mirror, e.g. `/docs/guides/skins.md`. */
+export const markdownPath = (entry: DocEntry) => `/docs/${entry.slug.join('/')}.md`;
+
+/** Cut text at a word boundary so meta descriptions never end mid-word. */
+export function clip(text: string, max = 158): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), max - 30)).replace(/[\s,;:.\u2014-]+$/, '')}…`;
 }
 
 export function loadDoc(entry: DocEntry): LoadedDoc {
@@ -125,10 +98,9 @@ export function loadDoc(entry: DocEntry): LoadedDoc {
     .split('\n')
     .map((l) => l.trim())
     .find((l) => l.length > 50 && !/^[#|>\-*!<]/.test(l));
-  const description = (plain ?? `${title} — Tomato Player documentation.`)
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/[`*_]/g, '')
-    .slice(0, 158);
+  const description =
+    entry.summary ??
+    clip((plain ?? `${title} — Tomato Player documentation.`).replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[`*_]/g, ''));
   return {
     ...entry,
     title,
@@ -136,6 +108,8 @@ export function loadDoc(entry: DocEntry): LoadedDoc {
     body,
     editUrl: `${SITE.repo}/edit/main/${entry.file}`,
     words: body.split(/\s+/).length,
+    updated: lastModified(entry.file),
+    markdown: markdownPath(entry),
   };
 }
 

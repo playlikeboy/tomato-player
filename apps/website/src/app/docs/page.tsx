@@ -2,12 +2,11 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/JsonLd';
 import { DocsCatalog } from '@/components/pages/Doc';
 import { DOCS, DOC_SECTIONS, loadDoc } from '@/lib/docs';
+import { PAGE_META } from '@/lib/meta';
 import { breadcrumbs, pageMeta } from '@/lib/seo';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Documentation',
-  description:
-    'Tomato Player documentation: getting started, architecture, skins, plugins, HLS and DASH streaming, React, Vue and Svelte, accessibility, API reference and guides for building your own skins and plugins.',
+  ...PAGE_META.docs,
   path: '/docs/',
   keywords: ['video player documentation', 'video player api', 'html5 video player tutorial'],
 });

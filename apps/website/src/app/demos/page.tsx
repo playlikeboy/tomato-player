@@ -1,13 +1,12 @@
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/JsonLd';
 import { DemoIndex } from '@/components/pages/Demos';
+import { PAGE_META } from '@/lib/meta';
 import { breadcrumbs, pageMeta } from '@/lib/seo';
 import { DEMOS, absolute } from '@/lib/site';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Live video player demos',
-  description:
-    'Live Tomato Player demos: HLS and DASH streaming, multi-language captions, chapters, playlists, analytics, keyboard shortcuts, theming, React and the <tomato-player> web component.',
+  ...PAGE_META.demos,
   path: '/demos/',
   keywords: ['video player demo', 'hls player demo', 'react video player example', 'web component video player'],
 });

@@ -2,13 +2,12 @@ import type { Metadata } from 'next';
 import { JsonLd } from '@/components/JsonLd';
 import { PluginIndex } from '@/components/pages/Plugins';
 import { fmtKb, sizeOf } from '@/lib/packages';
+import { PAGE_META } from '@/lib/meta';
 import { breadcrumbs, pageMeta } from '@/lib/seo';
 import { PLUGINS } from '@/lib/site';
 
 export const metadata: Metadata = pageMeta({
-  title: 'Video player plugins: chapters, playlists, analytics and more',
-  description:
-    'Official Tomato Player plugins: hotkeys, touch gestures, chapters, seek thumbnails, playlists, QoE analytics, Media Session and persisted settings. Small, independent and tree-shakeable.',
+  ...PAGE_META.plugins,
   path: '/plugins/',
   keywords: ['video player plugins', 'video chapters', 'video playlist', 'video analytics', 'keyboard shortcuts video'],
 });
