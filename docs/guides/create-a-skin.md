@@ -1,6 +1,6 @@
 # Create a skin
 
-Skins are the heart of Tomato Player, and anyone can publish one.
+Skins are the heart of Tomato Player, and anyone can publish one. This page is the short workflow inside the monorepo. For the full guide (tokens, CSS overrides, layout, auto-hide, sizes, menus, captions, portrait, accessibility, testing, publishing to npm and a complete worked example), read [Custom skins: the complete guide](custom-skins.md).
 
 ## 1. Scaffold
 
@@ -73,4 +73,4 @@ function sleepTimer(p: Player): Control {
 
 ## 6. Publish
 
-Inside this monorepo, open a PR using the **New skin** template. Outside it, publish as `tomato-player-skin-<name>` with the `tomato-player-skin` keyword so the gallery can discover it.
+Inside this monorepo, open a PR using the **New skin** template. Outside it, publish as `tomato-player-skin-<name>` with the `tomato-player-skin` keyword so the gallery can discover it, and declare `@tomato-player/core` as a peer dependency. The [complete guide](custom-skins.md#10-package-and-publish) has a ready `package.json`.

@@ -45,8 +45,11 @@ Tokens are CSS custom properties on the player root. Set them in CSS or through 
 | `--tp-duration` · `--tp-ease` | Motion. Zeroed automatically under `prefers-reduced-motion`. |
 
 ```css
-.tp[data-skin='minimal'] { --tp-accent: hotpink; --tp-radius: 0; }
+/* One extra class beats the injected skin stylesheet, whatever the load order. */
+.my-app .tp[data-skin='minimal'] { --tp-accent: hotpink; --tp-radius: 0; }
 ```
+
+The `tokens` option is written inline on the player root, so it beats any stylesheet rule. Use it for tokens a skin sets in its own `tokens` field, such as every official skin's `accent` except Minimal's. The [custom skins guide](custom-skins.md#4-theme-with-design-tokens) has the full token table and precedence rules.
 
 ## State hooks for CSS
 
@@ -66,3 +69,7 @@ createPlayer(el, { skin: cinema(), injectStyles: false });
 player.setSkin(tube());
 player.setSkin(null); // headless: bring your own UI
 ```
+
+## Build your own
+
+To override a skin's layout or write a new skin, read [Custom skins: the complete guide](custom-skins.md).

@@ -12,6 +12,7 @@ const files = [
   'docs/guides/streaming.md',
   'docs/guides/frameworks.md',
   'docs/guides/accessibility.md',
+  'docs/guides/custom-skins.md',
   'docs/guides/create-a-skin.md',
   'docs/guides/create-a-plugin.md',
   'docs/guides/create-a-provider.md',

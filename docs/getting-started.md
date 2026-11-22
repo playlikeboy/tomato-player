@@ -1,5 +1,9 @@
 # Getting started
 
+Tomato Player is a free, open-source (MIT) web video player: a small dependency-free core that drives the native `<video>` element, with swappable skins, opt-in plugins, lazy-loaded HLS and DASH engines, and React, Vue, Svelte, web-component and CDN builds. This page takes you from install to a working player.
+
+> **Status:** version 0.1.0. The npm packages are not published yet, so the `npm i` commands below work once they are. Until then, clone [the repository](https://github.com/playlikeboy/tomato-player) and run `pnpm install && pnpm build`.
+
 ## 1. Install
 
 ```sh

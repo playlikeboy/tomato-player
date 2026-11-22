@@ -2,9 +2,23 @@
 
 > Tomato Player is an open-source (MIT), modular, SSR-safe web video player ecosystem. A ~5.7 KB gz core drives the native <video> element. Skins, plugins, streaming providers (HLS via hls.js, DASH via dash.js) and framework bindings (React, Vue, Svelte, web component) are separate packages, so apps ship only what they use.
 
+## About
+
+- What it is: a free, open-source web video player for websites and web apps. One dependency-free engine runs many complete, swappable interfaces ("skins"): nine today, switchable at runtime and themed with `--tp-*` CSS design tokens.
+- Who it is for: media, OTT and learning-platform teams shipping their own player, and frontend developers adding video to React, Vue or Svelte apps.
+- License: MIT. Copyright (c) 2026 Tomato Player contributors. Maintained by playlikeboy (https://github.com/playlikeboy).
+- Source code: https://github.com/playlikeboy/tomato-player
+- Website and docs: https://playlikeboy.github.io/tomato-player/
+- Status: version 0.1.0, the first public release (2026-11-21). The npm packages (`@tomato-player/*` and `tomato-player`) are not published yet; build from the repository until they are.
+- Skins: Minimal (default), Cinema, Studio, Creator, Learn, Campus, and the unofficial, platform-inspired Stream, Tube and Feed. The unofficial skins use no third-party logos, fonts or assets and imply no affiliation.
+- Accessibility: every official skin targets WCAG 2.2 AA (labelled buttons and sliders, visible focus, captions, keyboard shortcuts, reduced-motion support).
+- There are no published benchmarks, download counts or customer case studies.
+
 Key facts for code generation:
 - Create a player: `createPlayer(targetSelectorOrElement, { src, skin: minimal(), plugins: [hotkeys()], providers: [hls()] })` from `@tomato-player/core`.
 - Skins are factories from `@tomato-player/skin-<name>`: minimal, cinema, studio, creator, learn, campus, stream, tube, feed. Call them: `skin: cinema()`.
+- Theme with tokens: `cinema({ tokens: { accent: '#38bdf8' } })` or `createPlayer(el, { tokens: { accent: '#38bdf8' } })` sets `--tp-accent` inline on the player root.
+- Custom skins: `createSkin({ name, css, tokens, build(player, root, options) { return [controls] } })` from `@tomato-player/ui`, composed from primitives such as `playButton`, `timeSlider`, `settingsMenu`, `group`, `spacer`. Scope every CSS selector to `.tp[data-skin='<name>']`.
 - Plugins are factories from `@tomato-player/plugin-<name>`: hotkeys, gestures, chapters, thumbnails, playlist, analytics, media-session (export `mediaSession`), persist.
 - Streaming engines are optional peer deps: `npm i @tomato-player/provider-hls hls.js`.
 - State: `player.state.paused`, `player.store.select(s => s.currentTime, cb)`. Methods: play, pause, seek(seconds), setVolume(0..1), setSource(src), setSkin(skin), destroy().
@@ -15,26 +29,28 @@ Key facts for code generation:
 ## Docs
 
 - [Website](https://playlikeboy.github.io/tomato-player/): docs with search, [skins](https://playlikeboy.github.io/tomato-player/skins/), [plugins](https://playlikeboy.github.io/tomato-player/plugins/), [live demos](https://playlikeboy.github.io/tomato-player/demos/), [playground](https://playlikeboy.github.io/tomato-player/playground/)
-- [Getting started](https://github.com/playlikeboy/tomato-player/blob/main/docs/getting-started.md): install, first player, CDN, frameworks
-- [Player API](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/player.md): options, state, methods, events, error codes
-- [UI primitives](https://github.com/playlikeboy/tomato-player/blob/main/docs/api/ui.md): controls for building skins
-- [Architecture](https://github.com/playlikeboy/tomato-player/blob/main/docs/concepts/architecture.md)
-- [Skins and theming](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/skins.md): tokens, data attributes, CSP
-- [Plugins](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/plugins.md)
-- [Streaming, HLS, DASH, DRM](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/streaming.md)
-- [Frameworks](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/frameworks.md): React/Next, Vue/Nuxt, Svelte/SvelteKit, web component
-- [Accessibility](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/accessibility.md)
-- [Troubleshooting](https://github.com/playlikeboy/tomato-player/blob/main/docs/troubleshooting.md)
-- [Migration from Plyr, Video.js, Vidstack, ReactPlayer](https://github.com/playlikeboy/tomato-player/blob/main/docs/migration/README.md)
+- [Getting started](https://playlikeboy.github.io/tomato-player/docs/getting-started.md): install, first player, CDN, frameworks
+- [Player API](https://playlikeboy.github.io/tomato-player/docs/api/player.md): options, state, methods, events, error codes
+- [UI primitives](https://playlikeboy.github.io/tomato-player/docs/api/ui.md): controls for building skins
+- [Architecture](https://playlikeboy.github.io/tomato-player/docs/concepts/architecture.md)
+- [Skins and theming](https://playlikeboy.github.io/tomato-player/docs/guides/skins.md): built-in skins, options, tokens, data attributes, CSP
+- [Plugins](https://playlikeboy.github.io/tomato-player/docs/guides/plugins.md)
+- [Streaming, HLS, DASH, DRM](https://playlikeboy.github.io/tomato-player/docs/guides/streaming.md)
+- [Frameworks](https://playlikeboy.github.io/tomato-player/docs/guides/frameworks.md): React/Next, Vue/Nuxt, Svelte/SvelteKit, web component
+- [Accessibility](https://playlikeboy.github.io/tomato-player/docs/guides/accessibility.md)
+- [Troubleshooting](https://playlikeboy.github.io/tomato-player/docs/troubleshooting.md)
+- [Migration from Plyr, Video.js, Vidstack, ReactPlayer](https://playlikeboy.github.io/tomato-player/docs/migration.md)
 
 ## Extending
 
-- [Create a skin](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-skin.md)
-- [Create a plugin](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-plugin.md)
-- [Create a provider](https://github.com/playlikeboy/tomato-player/blob/main/docs/guides/create-a-provider.md)
+- [Custom skins: the complete guide](https://playlikeboy.github.io/tomato-player/docs/guides/custom-skins.md): theme with tokens, override CSS safely, build a skin from UI primitives, test, publish to npm, use from React/Vue/Svelte/HTML, with a full worked example
+- [Create a skin](https://playlikeboy.github.io/tomato-player/docs/guides/create-a-skin.md): short monorepo workflow
+- [Create a plugin](https://playlikeboy.github.io/tomato-player/docs/guides/create-a-plugin.md)
+- [Create a provider](https://playlikeboy.github.io/tomato-player/docs/guides/create-a-provider.md)
 
 ## Optional
 
-- [Full documentation in one file](https://github.com/playlikeboy/tomato-player/blob/main/docs/llms-full.txt)
-- [Research collection](https://github.com/playlikeboy/tomato-player/blob/main/docs/research/README.md)
-- [Roadmap](https://github.com/playlikeboy/tomato-player/blob/main/docs/roadmap.md)
+- [Full documentation in one file](https://playlikeboy.github.io/tomato-player/llms-full.txt)
+- [Research collection](https://playlikeboy.github.io/tomato-player/docs/research.md)
+- [Roadmap](https://playlikeboy.github.io/tomato-player/docs/roadmap.md)
+- [Source on GitHub](https://github.com/playlikeboy/tomato-player)
