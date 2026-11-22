@@ -117,7 +117,7 @@ const FOOTER: { title: string; links: [string, string][] }[] = [
     links: [
       ['Getting started', '/docs/getting-started/'],
       ['Player API', '/docs/api/player/'],
-      ['Create a skin', '/docs/guides/create-a-skin/'],
+      ['Make your own skin', '/docs/guides/custom-skins/'],
       ['Streaming', '/docs/guides/streaming/'],
       ['Accessibility', '/docs/guides/accessibility/'],
     ],
@@ -148,9 +148,12 @@ function Footer() {
       <Divider />
       <Grid columns={{ minWidth: 180, repeat: 'fit' }} gap={6}>
         <VStack gap={2}>
-          <Heading level={2} type="display-3">
-            🍅 {SITE.name}
-          </Heading>
+          <HStack gap={2} vAlign="center">
+            <img src={asset('/assets/logo.svg')} alt="" width={28} height={28} />
+            <Heading level={2} type="display-3">
+              {SITE.name}
+            </Heading>
+          </HStack>
           <Text color="secondary">{SITE.tagline}. MIT licensed, built in the open.</Text>
         </VStack>
         {FOOTER.map((col) => (

@@ -1,9 +1,3 @@
 {
-  "palette.config.json": "57afec7fc1590677ba7fd91525ef2288356e2a8b03737cefe2cb34b1b374b249",
-  "preview.png": "7b970d87f30ae56a4c9fabb561688bf1c1d70990e436cc5c16da4e299953fcac",
-  "preview-dark.png": "5f0eb2e2a5d215df2f790008812e18eb62a496c6fb49079b344f897214d726cf",
-  "sheet-overlays.png": "6bb6e60b6e2ad840fbc3faba0d672fe365417fbe63b5afd5a878a0d707afdf72",
-  "sheet-overlays-dark.png": "f3f4eb005bba474cec610ef12c972c2ac738f735f7b398c111088f4d4d3485b8",
-  "sheet-actions.png": "d68a14018e892f06c386911537713911ce3ddf7ed18ae5dafef8fd01fece87a6",
-  "sheet-actions-dark.png": "7036b0171039e2f8f1eb7f53ea6bed2a5ccecf888cecf60b0c491e82397dbc0f"
+  "palette.config.json": "d0586aa958068cc0783df941b43730e2f6644e6a2fa0199ca9cc32d0c2245e5f"
 }

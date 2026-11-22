@@ -37,8 +37,7 @@ export const MEDIA = {
   hls: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
   dash: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
   tears: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8',
-  poster:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Big.Buck.Bunny.-.Opening.Screen.png/1280px-Big.Buck.Bunny.-.Opening.Screen.png',
+  poster: asset('/media/poster.jpg'),
   credit: 'Big Buck Bunny © Blender Foundation, CC BY 3.0, via Wikimedia Commons. HLS test stream by Mux, DASH by Akamai.',
 };
 
@@ -65,7 +64,7 @@ export const SKINS: SkinInfo[] = [
     summary: 'Clean, lightweight controls. The default skin.',
     description:
       'Minimal is the default Tomato Player skin: a single row of controls with a time slider, volume, captions, settings, picture-in-picture and fullscreen. It stays out of the way and fits any brand by changing one accent token.',
-    accent: '#ef4444',
+    accent: '#f0472e',
     factory: 'minimal()',
     options: [
       { name: 'pip', type: 'boolean', description: 'Show the picture-in-picture button (default true).' },
@@ -95,7 +94,7 @@ export const SKINS: SkinInfo[] = [
     summary: 'Pro toolbar with SMPTE timecode, frame stepping and A-B loop.',
     description:
       'Studio is a professional review skin: SMPTE timecode, frame-by-frame stepping, an A-B loop and playback from 0.1× to 4×. It suits editors, reviewers and anyone who needs exact frames.',
-    accent: '#22d3ee',
+    accent: '#38bdf8',
     factory: 'studio({ fps: 24 })',
     options: [{ name: 'fps', type: 'number', description: 'Frame rate for timecode and frame stepping (default 30).' }],
     features: ['SMPTE timecode', 'Frame stepping', 'A-B loop', '0.1× to 4× speed'],
@@ -119,7 +118,7 @@ export const SKINS: SkinInfo[] = [
     summary: 'For courses: speed chips, ±10 s, chapter panel and large captions.',
     description:
       'Learn is an education skin: prominent speed chips, ±10 second skips, a chapter panel and large, readable captions. It is designed for courses, lectures and tutorials.',
-    accent: '#16a34a',
+    accent: '#10b981',
     factory: 'learn()',
     options: [
       { name: 'rates', type: 'number[]', description: 'Speed chips to show (default 0.75, 1, 1.25, 1.5, 2).' },

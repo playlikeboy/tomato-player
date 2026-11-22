@@ -23,7 +23,7 @@ const QUICK: Hit[] = [
   ['/playground/', 'Playground', 'Tools'],
   ['/docs/api/player/', 'Player API reference', 'Docs'],
   ['/docs/guides/streaming/', 'HLS and DASH streaming', 'Docs'],
-  ['/docs/guides/create-a-skin/', 'Create a skin', 'Docs'],
+  ['/docs/guides/custom-skins/', 'Create a skin', 'Docs'],
 ].map(([url, label, section]) => ({ id: `${BASE_PATH}${url}`, label, auxiliaryData: { excerpt: '', section } }));
 
 type Pagefind = {

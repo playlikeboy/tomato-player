@@ -48,17 +48,17 @@ export function PageHeader({
           ))}
         </Breadcrumbs>
       )}
-      {eyebrow && (
-        <Text type="label" color="accent" weight="semibold">
-          {eyebrow}
-        </Text>
-      )}
       <HStack gap={3} vAlign="center" wrap="wrap">
         <Heading level={1} type="display-2">
           {title}
         </Heading>
         {badges?.map((b) => <Badge key={b} label={b} variant={b === 'Unofficial' ? 'warning' : 'neutral'} />)}
       </HStack>
+      {eyebrow?.startsWith('@') && (
+        <Text type="code" color="secondary">
+          {eyebrow}
+        </Text>
+      )}
       {lead && (
         <Text type="large" color="secondary" as="p" textWrap="pretty">
           {lead}

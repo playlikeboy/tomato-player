@@ -1,14 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { Badge } from '@astryxdesign/core/Badge';
 import { Banner } from '@astryxdesign/core/Banner';
 import { Button } from '@astryxdesign/core/Button';
-import { Card } from '@astryxdesign/core/Card';
 import { ClickableCard } from '@astryxdesign/core/ClickableCard';
 import { CodeBlock } from '@astryxdesign/core/CodeBlock';
 import { Grid } from '@astryxdesign/core/Grid';
-import { Heading } from '@astryxdesign/core/Heading';
 import { MetadataList, MetadataListItem } from '@astryxdesign/core/MetadataList';
 import { Selector } from '@astryxdesign/core/Selector';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
@@ -17,6 +14,7 @@ import { Player } from '@/components/Player';
 import { Code, OptionsTable, Page, PageHeader, SectionTitle } from '@/components/blocks';
 import { MEDIA, SKINS, asset, type SkinSlug } from '@/lib/site';
 import { skinUsage } from '@/lib/snippets';
+import { edition } from '@/components/pages/Home';
 
 /** Tomato palette swatches offered as accent presets. */
 export const ACCENTS: [string, string][] = [
@@ -42,43 +40,61 @@ export function AccentPicker({ value, onChange }: { value: string; onChange: (v:
   );
 }
 
-export function SkinGallery() {
+export function SkinGallery({ sizes }: { sizes: Record<string, string> }) {
   return (
-    <Page width={1280}>
+    <Page width={1360}>
       <PageHeader
         trail={[['Skins', '/skins/']]}
-        eyebrow="Skin gallery"
-        title="Video player skins"
-        lead={`${SKINS.length} complete interfaces for one engine. Every card is a real player: press play, try the controls, then open the skin for theming and code.`}
+        title="The collection"
+        lead={`${SKINS.length} complete video player interfaces for one engine. Every edition below is a live player: press play, try the controls, then open it for theming and code.`}
         actions={
           <>
             <Button label="Compare in the playground" variant="primary" href="/playground/" />
-            <Button label="Create your own skin" href="/docs/guides/create-a-skin/" />
+            <Button label="Make your own skin" href="/docs/guides/custom-skins/" />
           </>
         }
       />
-      <Grid columns={{ minWidth: 460, repeat: 'fit' }} gap={6}>
+      <div className="cx-spreads">
         {SKINS.map((s) => (
-          <Card key={s.slug} padding={4}>
-            <VStack gap={3}>
-              <Player skin={s.slug} label={`${s.name} skin demo`} plugins={['hotkeys']} lazy />
-              <HStack gap={2} vAlign="center" wrap="wrap">
-                <Heading level={2}>{s.name}</Heading>
-                {s.unofficial && <Badge label="Unofficial" variant="warning" />}
-                {s.portrait && <Badge label="9:16" variant="purple" />}
-              </HStack>
-              <Text color="secondary" as="p">
-                {s.summary}
-              </Text>
+          <section key={s.slug} className="cx-spread" aria-labelledby={`skin-${s.slug}`}>
+            <Player
+              skin={s.slug}
+              label={`${s.name} skin demo`}
+              plugins={['hotkeys']}
+              lazy
+              options={s.portrait ? { aspectRatio: '9 / 16' } : undefined}
+            />
+            <div className="cx-spread-side">
+              <div className="cx-edition" aria-hidden="true">
+                <span className="cx-edition-no">No.</span>
+                <span className="cx-edition-num">{edition(s.slug)}</span>
+              </div>
+              <h2 className="cx-spread-name" id={`skin-${s.slug}`}>
+                {s.name}
+                {s.unofficial && <span className="cx-tag">Unofficial</span>}
+                {s.portrait && <span className="cx-tag cx-tag-plain">9:16</span>}
+              </h2>
+              <p className="cx-spread-text">{s.summary}</p>
+              <dl className="cx-facts">
+                <dt>Weight</dt>
+                <dd>{sizes[s.slug]} gzip</dd>
+                <dt>Accent</dt>
+                <dd>
+                  <span className="cx-swatch" style={{ background: s.accent }} aria-hidden="true" />
+                  {s.accent}
+                </dd>
+                <dt>For</dt>
+                <dd>{s.bestFor}</dd>
+              </dl>
               <CodeBlock code={`npm i @tomato-player/skin-${s.slug}`} language="bash" hasLanguageLabel={false} width="100%" size="sm" />
-              <HStack gap={2}>
+              <HStack gap={2} wrap="wrap">
                 <Button label={`Open ${s.name}`} variant="primary" href={`/skins/${s.slug}/`} />
-                <Button label="Try in playground" variant="ghost" href={`/playground/?skin=${s.slug}`} />
+                <Button label="Playground" variant="ghost" href={`/playground/?skin=${s.slug}`} />
               </HStack>
-            </VStack>
-          </Card>
+            </div>
+          </section>
         ))}
-      </Grid>
+      </div>
       <Banner
         status="info"
         title="About the platform-inspired skins"
@@ -100,12 +116,16 @@ export function SkinDetail({ slug, size }: { slug: SkinSlug; size: string }) {
 
   return (
     <Page width={1200}>
+      <div className="cx-detail-head">
+      <div className="cx-edition" aria-hidden="true">
+        <span className="cx-edition-no">No.</span>
+        <span className="cx-edition-num">{edition(slug)}</span>
+      </div>
       <PageHeader
         trail={[
           ['Skins', '/skins/'],
           [skin.name, `/skins/${slug}/`],
         ]}
-        eyebrow={`@tomato-player/skin-${slug}`}
         title={`${skin.name} skin`}
         badges={[...(skin.unofficial ? ['Unofficial'] : []), size + ' gzip']}
         lead={skin.description}
@@ -121,6 +141,7 @@ export function SkinDetail({ slug, size }: { slug: SkinSlug; size: string }) {
           </>
         }
       />
+      </div>
       <Player
         skin={slug}
         plugins={['hotkeys', 'gestures', 'chapters']}
@@ -165,13 +186,13 @@ export function SkinDetail({ slug, size }: { slug: SkinSlug; size: string }) {
         />
       )}
 
-      <SectionTitle title="More skins" />
+      <SectionTitle title="More editions" />
       <Grid columns={{ minWidth: 240, repeat: 'fit' }} gap={3}>
         {others.map((s) => (
           <ClickableCard key={s.slug} label={`${s.name} skin`} href={`/skins/${s.slug}/`} padding={3}>
             <VStack gap={2}>
               <img className="tp-shot" src={asset(`/assets/skin-${s.slug}.png`)} alt={`${s.name} skin`} width={640} height={360} loading="lazy" />
-              <Text weight="semibold">{s.name}</Text>
+              <Text weight="semibold">No.{edition(s.slug)} {s.name}</Text>
               <Text type="supporting" color="secondary">
                 {s.summary}
               </Text>

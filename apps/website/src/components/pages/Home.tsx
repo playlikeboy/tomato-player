@@ -1,240 +1,314 @@
 'use client';
 
-import { useState } from 'react';
-import { Badge } from '@astryxdesign/core/Badge';
+import Link from 'next/link';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { Button } from '@astryxdesign/core/Button';
-import { Card } from '@astryxdesign/core/Card';
-import { ClickableCard } from '@astryxdesign/core/ClickableCard';
 import { CodeBlock } from '@astryxdesign/core/CodeBlock';
-import { Grid } from '@astryxdesign/core/Grid';
 import { Heading } from '@astryxdesign/core/Heading';
-import { Section } from '@astryxdesign/core/Section';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
-import { Tab, TabList } from '@astryxdesign/core/TabList';
 import { Text } from '@astryxdesign/core/Text';
 import { Player } from '@/components/Player';
-import { CodeTabs, Page, SectionTitle } from '@/components/blocks';
-import { PlayIcon } from '@/components/icons';
+import { CodeTabs } from '@/components/blocks';
 import { DEMOS, FAQ, MEDIA, PLUGINS, SKINS, asset, type SkinSlug } from '@/lib/site';
 import { FRAMEWORK_TABS, INSTALL } from '@/lib/snippets';
 
-const FEATURES: [string, string, string][] = [
-  ['🧩', 'Tiny modular core', 'The engine is a few KB with zero dependencies. Skins, plugins and streaming engines are separate packages you add only when you need them.'],
-  ['🎨', 'Swappable skins', 'Nine complete interfaces, switchable at runtime. Theme any of them with CSS tokens, or build your own from UI primitives.'],
-  ['📡', 'HLS & DASH', 'Adaptive streaming with a quality menu. hls.js and dash.js load lazily, only when a stream needs them, with native HLS on Safari.'],
-  ['♿', 'Accessible by default', 'Real buttons and sliders with labels, visible focus, keyboard shortcuts, captions and controls that stay up while focus is inside.'],
-  ['⚛️', 'Every framework', 'Official React, Vue and Svelte bindings, a <tomato-player> web component and a CDN build. SSR-safe for Next.js, Nuxt and SvelteKit.'],
-  ['🔌', 'Plugin ecosystem', 'Chapters, thumbnails, playlists, analytics, hotkeys, gestures, media session and persistence, all built on the public plugin API.'],
-  ['💬', 'Captions & chapters', 'WebVTT captions in any language with a styled overlay, plus chapter markers on the seek bar and chapter titles in the preview.'],
-  ['📱', 'Mobile first', 'Container queries, touch gestures, picture-in-picture, a pseudo-fullscreen fallback for iOS and portrait 9:16 skins.'],
-  ['🤖', 'Agent ready', 'Typed APIs, llms.txt and llms-full.txt, so AI coding tools can wire up a player without guessing.'],
-];
+export const edition = (slug: SkinSlug) => String(SKINS.findIndex((s) => s.slug === slug) + 1).padStart(2, '0');
 
-export function Home({ stats }: { stats: { core: string; cdn: string; packages: number } }) {
+export interface HomeStats {
+  core: string;
+  cdn: string;
+  packages: number;
+  skins: Record<string, string>;
+}
+
+const THEMING = `createPlayer('#player', {
+  src: 'movie.mp4',
+  skin: cinema({ eyebrow: 'Now showing' }),
+  tokens: { accent: '#e5402c', radius: '4px' },
+});`;
+
+export function Home({ stats }: { stats: HomeStats }) {
   const [skin, setSkin] = useState<SkinSlug>('cinema');
   const active = SKINS.find((s) => s.slug === skin)!;
+  const strip = useRef<HTMLDivElement>(null);
+
+  const spec: [string, string][] = [
+    ['Core', `${stats.core} gzip, zero dependencies, SSR-safe.`],
+    ['Streaming', 'HLS through hls.js (native on Safari) and DASH through dash.js, both loaded only when a stream needs them.'],
+    ['Captions', 'WebVTT in any language, a styled caption layer, chapters on the seek bar.'],
+    ['Access', 'Labelled buttons and sliders, visible focus, keyboard shortcuts, reduced motion respected.'],
+    ['Frameworks', 'React, Vue and Svelte bindings, a <tomato-player> element and a one-file CDN build.'],
+    ['Plugins', `${PLUGINS.length} official, from analytics and playlists to Media Session.`],
+    ['Packages', `${stats.packages} on one version, MIT licensed. The all-in-one build is ${stats.cdn}.`],
+  ];
+
+  // Arrow keys move through the edition strip like a set of radio buttons.
+  const onStripKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const i = SKINS.findIndex((s) => s.slug === skin);
+    const next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? SKINS.length - 1 : -2;
+    if (next === -2) return;
+    e.preventDefault();
+    const s = SKINS[(next + SKINS.length) % SKINS.length]!;
+    setSkin(s.slug);
+    strip.current?.querySelector<HTMLButtonElement>(`[data-slug="${s.slug}"]`)?.focus();
+  };
 
   return (
-    <VStack gap={0} hAlign="center">
-      {/* Hero */}
-      <Page width={1280}>
-        <Grid columns={{ minWidth: 480, repeat: 'fit' }} gap={8} align="center">
-          <VStack gap={5}>
-            <HStack gap={2} wrap="wrap">
-              <Badge label="v0.1 · MIT" variant="red" />
-              <Badge label="Zero dependencies" variant="green" />
-            </HStack>
-            <Heading level={1} type="display-1" textWrap="balance">
-              The open-source video player you can make your own.
-            </Heading>
-            <Text type="large" color="secondary" as="p" textWrap="pretty">
-              Tomato Player is a {stats.core} HTML5 video player core with nine swappable skins, HLS and DASH
-              streaming, captions, chapters, playlists and analytics, for React, Vue, Svelte or plain HTML.
-            </Text>
-            <HStack gap={2} wrap="wrap">
-              <Button label="Get started" variant="primary" size="lg" href="/docs/getting-started/" />
-              <Button label="See all skins" size="lg" href="/skins/" />
-              <Button label="Playground" variant="ghost" size="lg" icon={<PlayIcon />} href="/playground/" />
-            </HStack>
-            <CodeBlock code={INSTALL} language="bash" hasLanguageLabel={false} width="100%" />
-          </VStack>
-          <VStack gap={3}>
-            <Player skin={skin} plugins={['hotkeys', 'gestures', 'chapters']} label={`Live demo: ${active.name} skin`} />
-            <TabList value={skin} onChange={(v) => setSkin(v as SkinSlug)} size="sm" overflow="auto" aria-label="Switch skin">
-              {SKINS.map((s) => (
-                <Tab key={s.slug} value={s.slug} label={s.name} />
-              ))}
-            </TabList>
-            <Text type="supporting" color="secondary">
-              {active.summary} Same player, same video: only the skin changes.
-            </Text>
-          </VStack>
-        </Grid>
+    <div className="cx">
+      {/* First viewport: the collection on its stand. */}
+      <section className="cx-hero" aria-labelledby="cx-title">
+        <div className="cx-hero-copy">
+          <Heading level={1} type="display-1" id="cx-title" textWrap="balance">
+            Nine players. One engine.
+          </Heading>
+          <Text type="large" color="secondary" as="p" textWrap="pretty">
+            Tomato Player is an open-source web video player whose whole interface is a skin you can swap. Pick an
+            edition: same film, same {stats.core} core, a different player.
+          </Text>
+          <HStack gap={2} wrap="wrap">
+            <Button label="Get started" variant="primary" size="lg" href="/docs/getting-started/" />
+            <Button label="Browse the collection" size="lg" href="/skins/" />
+          </HStack>
 
-        {/* Stats */}
-        <Grid columns={{ minWidth: 160, repeat: 'fit' }} gap={3}>
-          {[
-            [stats.core, 'core, gzip'],
-            [String(SKINS.length), 'skins'],
-            [String(PLUGINS.length), 'official plugins'],
-            [String(stats.packages), 'npm packages'],
-            [stats.cdn, 'all-in-one CDN build'],
-          ].map(([value, label]) => (
-            <Card key={label} padding={4} variant="muted">
-              <VStack gap={1}>
-                <Text size="3xl" weight="bold" hasTabularNumbers>
-                  {value}
-                </Text>
-                <Text color="secondary">{label}</Text>
-              </VStack>
-            </Card>
-          ))}
-        </Grid>
-      </Page>
+        </div>
 
-      {/* Features */}
-      <Section variant="muted" width="100%" padding={0} dividers={['top', 'bottom']}>
-        <VStack hAlign="center" width="100%">
-          <Page width={1280}>
-            <SectionTitle
-              title="Everything a web video player needs. Nothing it doesn’t."
-              lead="Start with the core and one skin. Add streaming, plugins and framework bindings as your product grows."
-            />
-            <Grid columns={{ minWidth: 300, repeat: 'fit' }} gap={4}>
-              {FEATURES.map(([icon, title, body]) => (
-                <Card key={title} padding={5}>
-                  <VStack gap={2}>
-                    <Text size="2xl" aria-hidden="true">
-                      {icon}
-                    </Text>
-                    <Heading level={3}>{title}</Heading>
-                    <Text color="secondary" as="p">
-                      {body}
-                    </Text>
-                  </VStack>
-                </Card>
-              ))}
-            </Grid>
-          </Page>
-        </VStack>
-      </Section>
+          <div className="cx-colophon" aria-live="polite">
+          <div className="cx-edition" key={skin}>
+            <span className="cx-edition-no">No.</span>
+            <span className="cx-edition-num">{edition(skin)}</span>
+          </div>
+          <div className="cx-colophon-body">
+            <p className="cx-colophon-name">
+              {active.name}
+              {active.unofficial && <span className="cx-tag">Unofficial</span>}
+            </p>
+            <dl className="cx-facts">
+              <dt>Package</dt>
+              <dd>
+                <code>@tomato-player/skin-{skin}</code>
+              </dd>
+              <dt>Weight</dt>
+              <dd>{stats.skins[skin]} gzip</dd>
+              <dt>Accent</dt>
+              <dd>
+                <span className="cx-swatch" style={{ background: active.accent }} aria-hidden="true" />
+                {active.accent}
+              </dd>
+              <dt>For</dt>
+              <dd>{active.bestFor}</dd>
+            </dl>
+            <Link className="cx-more" href={`/skins/${skin}/`}>
+              Open No.{edition(skin)} {active.name}
+            </Link>
+          </div>
+        </div>
+        <div className="cx-cover">
+          <Player
+            skin={skin}
+            plugins={['hotkeys', 'gestures', 'chapters']}
+            label={`Live player, ${active.name} skin`}
+            options={active.portrait ? { aspectRatio: '9 / 16' } : undefined}
+          />
+        </div>
 
-      {/* Skins */}
-      <Page width={1280}>
-        <HStack hAlign="between" vAlign="end" wrap="wrap" gap={4}>
-          <SectionTitle title="Nine skins, one engine" lead="Each skin is a complete interface. Open one to play it, theme it and copy the code." />
-          <Button label="Open the skin gallery" href="/skins/" />
-        </HStack>
-        <Grid columns={{ minWidth: 280, repeat: 'fit' }} gap={4}>
+        <div className="cx-strip" role="radiogroup" aria-label="Choose a skin" ref={strip} onKeyDown={onStripKey}>
+          {SKINS.map((s) => {
+            const on = s.slug === skin;
+            return (
+              <button
+                key={s.slug}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                tabIndex={on ? 0 : -1}
+                data-slug={s.slug}
+                className="cx-strip-item"
+                onClick={() => setSkin(s.slug)}
+              >
+                <img src={asset(`/assets/skin-${s.slug}.png`)} alt="" width={320} height={180} loading="lazy" decoding="async" />
+                <span className="cx-strip-label">
+                  <span className="cx-strip-num">{edition(s.slug)}</span>
+                  {s.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* The catalogue index. */}
+      <section className="cx-section" aria-labelledby="cx-index">
+        <header className="cx-section-head">
+          <Heading level={2} id="cx-index" type="display-3">
+            The collection
+          </Heading>
+          <Text color="secondary" as="p" textWrap="pretty">
+            Each edition is a complete interface in its own package. Install one, theme it with tokens, or replace it
+            with your own.
+          </Text>
+        </header>
+        <ol className="cx-index">
           {SKINS.map((s) => (
-            <ClickableCard key={s.slug} label={`${s.name} skin`} href={`/skins/${s.slug}/`} padding={3}>
-              <VStack gap={3}>
-                <img
-                  className="tp-shot"
-                  src={asset(`/assets/skin-${s.slug}.png`)}
-                  alt={`${s.name} skin for Tomato Player: ${s.summary}`}
-                  width={640}
-                  height={360}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <HStack gap={2} vAlign="center">
-                  <Heading level={3}>{s.name}</Heading>
-                  {s.unofficial && <Badge label="Unofficial" variant="warning" />}
-                </HStack>
-                <Text color="secondary">{s.summary}</Text>
-              </VStack>
-            </ClickableCard>
+            <li key={s.slug}>
+              <Link href={`/skins/${s.slug}/`} className="cx-index-row">
+                <span className="cx-index-num">{edition(s.slug)}</span>
+                <img src={asset(`/assets/skin-${s.slug}.png`)} alt="" width={160} height={90} loading="lazy" decoding="async" />
+                <span className="cx-index-name">
+                  {s.name}
+                  {s.unofficial && <span className="cx-tag">Unofficial</span>}
+                </span>
+                <span className="cx-index-summary">{s.summary}</span>
+                <span className="cx-index-meta">
+                  <span className="cx-swatch" style={{ background: s.accent }} aria-hidden="true" />
+                  {stats.skins[s.slug]}
+                </span>
+              </Link>
+            </li>
           ))}
-        </Grid>
-      </Page>
+        </ol>
+      </section>
 
-      {/* Frameworks */}
-      <Section variant="muted" width="100%" padding={0} dividers={['top', 'bottom']}>
-        <VStack hAlign="center" width="100%">
-          <Page width={1280}>
-            <Grid columns={{ minWidth: 480, repeat: 'fit' }} gap={8}>
-              <VStack gap={4}>
-                <SectionTitle
-                  title="Works where you work"
-                  lead="One engine with thin bindings: React, Vue, Svelte, a web component and a script tag. The core never touches window at import, so server rendering just works."
-                />
-                <HStack gap={2} wrap="wrap">
-                  <Button label="Framework guide" href="/docs/guides/frameworks/" />
-                  <Button label="React demo" variant="ghost" href="/demos/react/" />
-                  <Button label="Web component demo" variant="ghost" href="/demos/web-component/" />
-                </HStack>
-              </VStack>
-              <CodeTabs tabs={FRAMEWORK_TABS} label="Framework examples" />
-            </Grid>
-          </Page>
+      {/* What every edition shares. */}
+      <section className="cx-section cx-split" aria-labelledby="cx-engine">
+        <header className="cx-section-head">
+          <Heading level={2} id="cx-engine" type="display-3">
+            Under every edition
+          </Heading>
+          <Text color="secondary" as="p" textWrap="pretty">
+            Skins change the interface, never the engine. Streaming, captions and accessibility work the same in all
+            nine, and in the one you write next.
+          </Text>
+          <HStack gap={2} wrap="wrap">
+            <Button label="Architecture" href="/docs/concepts/architecture/" />
+            <Button label="Packages" variant="ghost" href="/packages/" />
+          </HStack>
+        </header>
+        <dl className="cx-spec">
+          {spec.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="cx-section cx-split" aria-labelledby="cx-frameworks">
+        <header className="cx-section-head">
+          <Heading level={2} id="cx-frameworks" type="display-3">
+            Drop it into your stack
+          </Heading>
+          <Text color="secondary" as="p" textWrap="pretty">
+            Thin bindings over one engine. The core never touches window at import, so Next.js, Nuxt and SvelteKit
+            render it on the server without guards.
+          </Text>
+          <CodeBlock code={INSTALL} language="bash" hasLanguageLabel={false} width="100%" />
+        </header>
+        <CodeTabs tabs={FRAMEWORK_TABS} label="Framework examples" />
+      </section>
+
+      {/* Make your own. */}
+      <section className="cx-section cx-split" aria-labelledby="cx-yours">
+        <header className="cx-section-head">
+          <Heading level={2} id="cx-yours" type="display-3">
+            Edition {String(SKINS.length + 1).padStart(2, '0')} is yours
+          </Heading>
+          <Text color="secondary" as="p" textWrap="pretty">
+            Start by changing tokens on a skin you like. When you need a different layout, build a skin from the same UI
+            primitives the official ones use and publish it as a package.
+          </Text>
+          <HStack gap={2} wrap="wrap">
+            <Button label="Make your own skin" variant="primary" href="/docs/guides/custom-skins/" />
+            <Button label="Theme a skin" href="/docs/guides/skins/" />
+          </HStack>
+        </header>
+        <CodeBlock code={THEMING} language="ts" title="player.ts" width="100%" />
+      </section>
+
+      {/* Plugins and demos as two short indexes. */}
+      <section className="cx-section cx-lists" aria-label="Plugins and demos">
+        <div>
+          <HStack hAlign="between" vAlign="end" gap={4}>
+            <Heading level={2} type="display-3">
+              Plugins
+            </Heading>
+            <Link className="cx-more" href="/plugins/">
+              All plugins
+            </Link>
+          </HStack>
+          <ul className="cx-list">
+            {PLUGINS.map((p) => (
+              <li key={p.slug}>
+                <Link href={`/plugins/${p.slug}/`}>
+                  <span className="cx-list-name">{p.name}</span>
+                  <span className="cx-list-text">{p.summary}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <HStack hAlign="between" vAlign="end" gap={4}>
+            <Heading level={2} type="display-3">
+              Live demos
+            </Heading>
+            <Link className="cx-more" href="/demos/">
+              All demos
+            </Link>
+          </HStack>
+          <ul className="cx-list">
+            {DEMOS.slice(0, 8).map((d) => (
+              <li key={d.slug}>
+                <Link href={`/demos/${d.slug}/`}>
+                  <span className="cx-list-name">{d.title}</span>
+                  <span className="cx-list-text">{d.summary}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="cx-section cx-split" aria-labelledby="cx-faq">
+        <header className="cx-section-head">
+          <Heading level={2} id="cx-faq" type="display-3">
+            Questions
+          </Heading>
+          <Text color="secondary" as="p">
+            Anything else is in the <Link href="/docs/">docs</Link> or on{' '}
+            <a href="https://github.com/playlikeboy/tomato-player/issues" target="_blank" rel="noopener">
+              GitHub issues
+            </a>
+            .
+          </Text>
+        </header>
+        <dl className="cx-faq">
+          {FAQ.map((f) => (
+            <div key={f.q}>
+              <dt>{f.q}</dt>
+              <dd>{f.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="cx-close" aria-labelledby="cx-close">
+        <VStack gap={4} maxWidth={720}>
+          <Heading level={2} id="cx-close" type="display-2" textWrap="balance">
+            Ship a player that looks like your product.
+          </Heading>
+          <p className="cx-close-text">Free and MIT licensed. Read the docs, star the repo, or start edition {SKINS.length + 1}.</p>
+          <HStack gap={2} wrap="wrap">
+            <Link className="cx-close-btn" href="/docs/getting-started/">
+              Get started
+            </Link>
+            <a className="cx-close-btn cx-close-btn-ghost" href="https://github.com/playlikeboy/tomato-player" target="_blank" rel="noopener">
+              Star on GitHub
+            </a>
+          </HStack>
+          <p className="cx-credit">{MEDIA.credit}</p>
         </VStack>
-      </Section>
-
-      {/* Plugins & demos */}
-      <Page width={1280}>
-        <SectionTitle title="Plugins" lead="Each plugin is a small package on the public plugin API. Use them as they are or as a template for your own." />
-        <Grid columns={{ minWidth: 260, repeat: 'fit' }} gap={3}>
-          {PLUGINS.map((p) => (
-            <ClickableCard key={p.slug} label={`${p.name} plugin`} href={`/plugins/${p.slug}/`} padding={4} variant="muted">
-              <VStack gap={1}>
-                <Text weight="semibold">{p.name}</Text>
-                <Text color="secondary">{p.summary}</Text>
-              </VStack>
-            </ClickableCard>
-          ))}
-        </Grid>
-        <HStack hAlign="between" vAlign="end" wrap="wrap" gap={4}>
-          <SectionTitle title="Live demos" lead="Real players, real streams. Every demo shows the code that builds it." />
-          <Button label="All demos" href="/demos/" />
-        </HStack>
-        <Grid columns={{ minWidth: 260, repeat: 'fit' }} gap={3}>
-          {DEMOS.slice(0, 8).map((d) => (
-            <ClickableCard key={d.slug} label={d.title} href={`/demos/${d.slug}/`} padding={4}>
-              <VStack gap={1}>
-                <Text weight="semibold">{d.title}</Text>
-                <Text color="secondary">{d.summary}</Text>
-              </VStack>
-            </ClickableCard>
-          ))}
-        </Grid>
-      </Page>
-
-      {/* FAQ */}
-      <Section variant="muted" width="100%" padding={0} dividers={['top']}>
-        <VStack hAlign="center" width="100%">
-          <Page width={1280}>
-            <SectionTitle title="Questions, answered" />
-            <Grid columns={{ minWidth: 380, repeat: 'fit' }} gap={6}>
-              {FAQ.map((f) => (
-                <VStack key={f.q} gap={2}>
-                  <Heading level={3}>{f.q}</Heading>
-                  <Text color="secondary" as="p">
-                    {f.a}
-                  </Text>
-                </VStack>
-              ))}
-            </Grid>
-            <Card padding={8} variant="red">
-              <VStack gap={4} hAlign="center">
-                <Heading level={2} justify="center">
-                  Ship a player you’re proud of.
-                </Heading>
-                <Text justify="center" as="p">
-                  Free and MIT licensed. Star the repo, open an issue, or build skin number {SKINS.length + 1}.
-                </Text>
-                <HStack gap={2} wrap="wrap" hAlign="center">
-                  <Button label="Read the docs" variant="primary" href="/docs/" />
-                  <Button label="Star on GitHub" href="https://github.com/playlikeboy/tomato-player" target="_blank" rel="noopener" />
-                </HStack>
-                <Text type="supporting" color="secondary">
-                  {MEDIA.credit}
-                </Text>
-              </VStack>
-            </Card>
-          </Page>
-        </VStack>
-      </Section>
-    </VStack>
+      </section>
+    </div>
   );
 }
