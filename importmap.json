@@ -1,0 +1,29 @@
+{
+  "imports": {
+    "@tomato-player/core": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/core/index.js",
+    "@tomato-player/plugin-analytics": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-analytics/index.js",
+    "@tomato-player/plugin-chapters": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-chapters/index.js",
+    "@tomato-player/plugin-gestures": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-gestures/index.js",
+    "@tomato-player/plugin-hotkeys": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-hotkeys/index.js",
+    "@tomato-player/plugin-media-session": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-media-session/index.js",
+    "@tomato-player/plugin-persist": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-persist/index.js",
+    "@tomato-player/plugin-playlist": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-playlist/index.js",
+    "@tomato-player/plugin-thumbnails": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/plugin-thumbnails/index.js",
+    "@tomato-player/provider-dash": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/provider-dash/index.js",
+    "@tomato-player/provider-hls": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/provider-hls/index.js",
+    "@tomato-player/skin-campus": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-campus/index.js",
+    "@tomato-player/skin-cinema": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-cinema/index.js",
+    "@tomato-player/skin-creator": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-creator/index.js",
+    "@tomato-player/skin-feed": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-feed/index.js",
+    "@tomato-player/skin-learn": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-learn/index.js",
+    "@tomato-player/skin-minimal": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-minimal/index.js",
+    "@tomato-player/skin-stream": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-stream/index.js",
+    "@tomato-player/skin-studio": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-studio/index.js",
+    "@tomato-player/skin-tube": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/skin-tube/index.js",
+    "tomato-player": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/tomato-player/index.js",
+    "tomato-player/element": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/tomato-player/element.js",
+    "@tomato-player/ui": "https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/esm/ui/index.js",
+    "hls.js": "https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.mjs",
+    "dashjs": "https://cdn.jsdelivr.net/npm/dashjs@4/+esm"
+  }
+}

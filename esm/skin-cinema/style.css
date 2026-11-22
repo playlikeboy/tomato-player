@@ -1,0 +1,42 @@
+/* Cinema: a title card, a hairline gold progress rule and remaining time. */
+.tp[data-skin='cinema'] {
+  --tp-font: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --tp-display-font: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --tp-control-size: 44px;
+  --tp-icon-size: 22px;
+  --tp-slider-height: 2px;
+  --tp-slider-hover-height: 4px;
+  --tp-thumb-size: 12px;
+  --tp-track: rgba(255, 255, 255, 0.2);
+  --tp-buffer: rgba(255, 255, 255, 0.34);
+  --tp-surface: rgba(14, 12, 10, 0.88);
+  --tp-thumb: #fff6e2;
+  --tp-hover: transparent;
+  border-radius: 14px;
+  box-shadow: 0 30px 80px -24px rgba(0, 0, 0, 0.85);
+}
+.tp[data-skin='cinema'] .tp-cinema-top {
+  position: absolute; inset: 0 0 auto 0;
+  padding: clamp(16px, 4cqw, 40px) clamp(18px, 5cqw, 52px) clamp(40px, 10cqw, 96px);
+  background: var(--tp-scrim-top);
+}
+.tp[data-skin='cinema'] .tp-eyebrow { color: var(--tp-accent); font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 8px; }
+.tp[data-skin='cinema'] .tp-title { font-family: var(--tp-display-font); font-size: clamp(20px, 3.6cqw, 40px); font-weight: 400; letter-spacing: 0; line-height: 1.1; }
+.tp[data-skin='cinema'] .tp-controls {
+  position: absolute; inset: auto 0 0 0; display: grid; gap: 4px;
+  padding: clamp(56px, 14cqw, 120px) clamp(12px, 4cqw, 44px) clamp(8px, 2.2cqw, 24px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.55) 38%, rgba(0, 0, 0, 0.18) 72%, rgba(0, 0, 0, 0) 100%);
+}
+.tp[data-skin='cinema'] .tp-cinema-progress { gap: 16px; padding: 0 calc((var(--tp-control-size) - var(--tp-icon-size)) / 2); }
+.tp[data-skin='cinema'] .tp-time-remaining { color: var(--tp-muted-fg); min-width: 5ch; text-align: right; font-size: 13px; letter-spacing: 0.04em; }
+.tp[data-skin='cinema'] .tp-big-play {
+  --tp-control-size: 92px; --tp-icon-size: 32px;
+  background: rgba(10, 9, 8, 0.28);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 246, 226, 0.85);
+}
+.tp[data-skin='cinema'] .tp-big-play:hover { background: var(--tp-accent); color: #17120a; box-shadow: inset 0 0 0 1.5px var(--tp-accent); }
+.tp[data-skin='cinema'] .tp-button:hover { color: var(--tp-accent); }
+.tp[data-skin='cinema'] .tp-menu-item[aria-checked='true'] { color: var(--tp-accent); }
+.tp[data-skin='cinema'] .tp-caption-text { font-family: var(--tp-display-font); background: transparent; font-size: clamp(16px, 2.8cqw, 30px); font-weight: 400; text-shadow: 0 2px 8px #000, 0 0 2px #000; }
+.tp[data-skin='cinema'] .tp-media::cue { font-family: var(--tp-display-font); background: transparent; text-shadow: 0 2px 6px #000, 0 0 2px #000; }
+.tp[data-skin='cinema'][data-size='sm'] .tp-seek { display: none; }
