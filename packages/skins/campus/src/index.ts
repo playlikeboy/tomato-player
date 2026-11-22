@@ -49,7 +49,6 @@ function campusError(p: Player, message: string): Control {
 export const campus = createSkin<CampusOptions>({
   name: 'campus',
   css,
-  tokens: { accent: '#6b3df5' },
   build(p, root, o) {
     const theme = o.theme ?? 'auto';
     if (theme !== 'auto') root.parentElement?.setAttribute('data-theme', theme);

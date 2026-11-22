@@ -100,3 +100,11 @@
 /* Error sticker */
 .tp[data-skin='campus'] .tp-campus-error { background: var(--tp-bg); }
 .tp[data-skin='campus'] .tp-campus-error .tp-error-message { max-width: 18ch; padding: 16px 20px; border-radius: 22px; background: var(--tp-sticker); color: var(--tp-sticker-fg); box-shadow: var(--tp-shadow); font-size: 24px; }
+
+/* Sticker surfaces carry their own shadow: no icon shadow, no pressed dot. */
+.tp[data-skin='campus'] { --tp-icon-shadow: none; }
+.tp[data-skin='campus'] .tp-button[aria-pressed='true']::after { display: none; }
+.tp[data-skin='campus'] .tp-menu { -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: var(--tp-shadow-lift); }
+.tp[data-skin='campus'] .tp-menu-item:hover { background: var(--tp-hover); }
+.tp[data-skin='campus'] .tp-time-display, .tp[data-skin='campus'] .tp-title { text-shadow: none; }
+.tp[data-skin='campus'] .tp-slider-thumb { box-shadow: 0 1px 3px rgb(21 19 29 / 0.3); }

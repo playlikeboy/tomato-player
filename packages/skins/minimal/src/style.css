@@ -1,9 +1,10 @@
-.tp[data-skin='minimal'] { --tp-accent: #f43f5e; --tp-radius: 6px; border-radius: var(--tp-radius); }
+/* Minimal: one quiet row over an eased scrim. The default skin. */
+.tp[data-skin='minimal'] { --tp-radius: 10px; border-radius: var(--tp-radius); }
 .tp[data-skin='minimal'] .tp-controls {
-  position: absolute; inset: auto 0 0 0; padding: 24px 10px 6px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  position: absolute; inset: auto 0 0 0; display: grid; gap: 0;
+  padding: clamp(40px, 12cqw, 72px) clamp(8px, 1.6cqw, 14px) clamp(4px, 1cqw, 8px);
+  background: var(--tp-scrim);
 }
-.tp[data-skin='minimal'] .tp-time-slider { margin: 0 6px; }
-.tp[data-skin='minimal'] .tp-time-slider:hover .tp-slider-track { height: 6px; }
-.tp[data-skin='minimal'] .tp-big-play { --tp-control-size: 64px; background: rgba(0, 0, 0, 0.55); }
+.tp[data-skin='minimal'] .tp-time-slider { margin: 0 calc((var(--tp-control-size) - var(--tp-icon-size)) / 2); }
+.tp[data-skin='minimal'] .tp-big-play { --tp-control-size: 68px; --tp-icon-size: 28px; }
 .tp[data-skin='minimal'][data-size='sm'] .tp-pip { display: none; }

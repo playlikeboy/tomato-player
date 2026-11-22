@@ -487,7 +487,7 @@ export function settingsMenu(player: Player, sections?: MenuSection[]): Control 
     const section = list.find((s) => s.id === view);
     if (section) {
       const data = section.items(state);
-      panel.append(item(h('span', { class: 'tp-menu-back' }, '‹ ', section.label), null, () => ((view = null), render())));
+      panel.append(item(h('span', { class: 'tp-menu-back' }, svg(icons.chevron), section.label), null, () => ((view = null), render())));
       for (const it of data?.items ?? []) {
         const checked = it.value === data?.selected;
         panel.append(
