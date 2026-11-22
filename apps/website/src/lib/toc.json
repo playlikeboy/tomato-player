@@ -66,6 +66,13 @@
           "description": "Use Tomato Player in React and Next.js, Vue and Nuxt, Svelte and SvelteKit, or any framework through the <tomato-player> web component. SSR-safe bindings."
         },
         {
+          "slug": "guides/cdn",
+          "file": "docs/guides/cdn.md",
+          "title": "CDN (jsDelivr)",
+          "metaTitle": "Use the video player from jsDelivr CDN",
+          "description": "Load Tomato Player from jsDelivr with one script tag or ES modules and an import map, add HLS and DASH, pin a build and run it under a strict CSP."
+        },
+        {
           "slug": "guides/accessibility",
           "file": "docs/guides/accessibility.md",
           "title": "Accessibility",

@@ -1,0 +1,40 @@
+name: CDN
+
+# Builds every package and publishes the browser-ready files to the `cdn` branch,
+# which jsDelivr serves straight from GitHub:
+#   https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js
+on:
+  push:
+    branches: [main]
+    paths: ['packages/**', 'scripts/cdn-dist.mjs', 'pnpm-lock.yaml', '.github/workflows/cdn.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cdn
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: node scripts/cdn-dist.mjs
+      - name: Publish the cdn branch (signed by GitHub)
+        run: node scripts/cdn-push.mjs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Purge jsDelivr cache
+        run: |
+          for f in tomato-player.global.js importmap.json; do
+            curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@cdn/$f" > /dev/null || true
+          done

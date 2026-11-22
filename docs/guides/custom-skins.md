@@ -87,7 +87,7 @@ Every skin package exports a factory, a default export of the same factory and a
 The `tomato-player` bundle contains the core, the UI primitives, all nine skins and the official plugins, and registers the `<tomato-player>` element:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 
 <tomato-player src="/media/trailer.mp4" title="Launch trailer" skin="cinema" accent="#38bdf8"></tomato-player>
 ```
@@ -926,7 +926,7 @@ Don't change the `skin` attribute afterwards. It switches back to an official sk
 Without a bundler, the CDN bundle exposes the UI primitives as `TomatoPlayer.ui`, so a small skin can be written inline:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 <div id="player"></div>
 <script>
   const { createSkin, gestureLayer, spinner, bigPlayButton, group, timeSlider, playButton, timeDisplay, spacer, fullscreenButton } = TomatoPlayer.ui;

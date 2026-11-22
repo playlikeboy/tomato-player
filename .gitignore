@@ -20,3 +20,4 @@ apps/website/public/llms*.txt
 apps/website/public/docs/
 apps/website/themes/*/*.png
 apps/website/themes/*/*.html
+cdn-dist/

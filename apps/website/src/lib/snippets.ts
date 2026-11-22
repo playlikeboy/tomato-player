@@ -76,7 +76,7 @@ const onEnded = () => console.log('done');
     label: 'HTML / CDN',
     language: 'html',
     title: 'index.html',
-    code: `<script src="https://cdn.jsdelivr.net/npm/tomato-player@0"></script>
+    code: `<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 
 <tomato-player
   src="https://example.com/stream.m3u8"

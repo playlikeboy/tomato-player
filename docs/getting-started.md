@@ -2,9 +2,24 @@
 
 Tomato Player is a free, open-source (MIT) web video player: a small dependency-free core that drives the native `<video>` element, with swappable skins, opt-in plugins, lazy-loaded HLS and DASH engines, and React, Vue, Svelte, web-component and CDN builds. This page takes you from install to a working player.
 
-> **Status:** version 0.1.0. The npm packages are not published yet, so the `npm i` commands below work once they are. Until then, clone [the repository](https://github.com/playlikeboy/tomato-player) and run `pnpm install && pnpm build`.
+> **Status:** version 0.1.0. The npm packages are not published yet: `npm i tomato-player` and `npm i @tomato-player/...` currently fail with `404 Not Found`. Use the jsDelivr CDN build below, or clone [the repository](https://github.com/playlikeboy/tomato-player) and run `pnpm install && pnpm build`.
 
 ## 1. Install
+
+### From the CDN (works today)
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
+<div id="player"></div>
+<script>
+  const { createPlayer, minimal } = window.TomatoPlayer;
+  createPlayer('#player', { src: 'movie.mp4', skin: minimal() });
+</script>
+```
+
+ES modules, HLS/DASH and version pinning are covered in the [CDN guide](guides/cdn.md).
+
+### From npm (after the first release)
 
 ```sh
 npm i @tomato-player/core @tomato-player/skin-minimal
@@ -58,7 +73,7 @@ Nothing you don't import is shipped. hls.js is downloaded only when an HLS sourc
 ## 4. No bundler? Use the CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 
 <tomato-player src="movie.mp4" poster="poster.jpg" title="My movie" skin="cinema" accent="#f59e0b">
   <track kind="captions" src="en.vtt" srclang="en" label="English" default />

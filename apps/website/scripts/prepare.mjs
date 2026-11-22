@@ -27,7 +27,7 @@ copy('packages/tomato-player/dist', 'lib/tomato-player');
 // The CDN example loads the bundle from jsDelivr once published; on the site it uses the local copy.
 const base = (process.env.NEXT_PUBLIC_BASE_PATH ?? '').replace(/\/$/, '');
 const cdn = readFileSync(join(root, 'examples/cdn/index.html'), 'utf8')
-  .replace(/https:\/\/cdn\.jsdelivr\.net\/npm\/tomato-player@0\/dist\//g, `${base}/lib/tomato-player/`)
+  .replace(/https:\/\/cdn\.jsdelivr\.net\/gh\/playlikeboy\/tomato-player@cdn\//g, `${base}/lib/tomato-player/`)
   .replace(/\.\.\/assets\//g, `${base}/media/`);
 mkdirSync(join(pub, 'examples/cdn'), { recursive: true });
 writeFileSync(join(pub, 'examples/cdn/index.html'), cdn);

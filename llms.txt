@@ -23,7 +23,7 @@ Key facts for code generation:
 - Streaming engines are optional peer deps: `npm i @tomato-player/provider-hls hls.js`.
 - State: `player.state.paused`, `player.store.select(s => s.currentTime, cb)`. Methods: play, pause, seek(seconds), setVolume(0..1), setSource(src), setSkin(skin), destroy().
 - React: `import { TomatoPlayer } from '@tomato-player/react'` -> `<TomatoPlayer src skin={minimal()} />`. Memoize skin/plugins.
-- No bundler: `<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js">` then `<tomato-player src="..." skin="cinema">`.
+- No bundler: `<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js">` then `<tomato-player src="..." skin="cinema">`.
 - Never call createPlayer during SSR render; use effects/onMounted/actions.
 
 ## Docs

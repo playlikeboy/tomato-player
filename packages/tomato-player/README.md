@@ -11,7 +11,7 @@ npm i tomato-player
 ## Usage
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/tomato-player"></script>
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 <tomato-player src="movie.mp4" skin="cinema" title="My film"></tomato-player>
 ```
 

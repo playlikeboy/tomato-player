@@ -40,6 +40,16 @@ Picking a web video player usually means choosing between **a heavy all-in-one**
 
 ## Quick start
 
+> The npm packages are not published yet (`npm i` returns 404). Until then, load it from jsDelivr:
+>
+> ```html
+> <script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
+> ```
+>
+> See the [CDN guide](docs/guides/cdn.md) for ES modules and import maps.
+
+After the first npm release:
+
 ```sh
 npm i @tomato-player/core @tomato-player/skin-minimal
 ```
@@ -61,7 +71,7 @@ player.on('ended', () => console.log('🍅 done'));
 ### No build step
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/tomato-player@0/dist/tomato-player.global.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/playlikeboy/tomato-player@cdn/tomato-player.global.js"></script>
 
 <tomato-player src="movie.mp4" poster="poster.jpg" title="My movie" skin="cinema" accent="#f59e0b">
   <track kind="captions" src="en.vtt" srclang="en" label="English" />
