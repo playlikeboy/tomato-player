@@ -8,6 +8,7 @@ import {
   settingsMenu, spacer, spinner, timeDisplay, timeSlider, title, volumeControl, bigPlayButton,
 } from '@tomato-player/ui';
 import css from './style.css';
+import { tubeIcons } from './icons';
 
 export interface TubeOptions {
   onNext?: () => void;
@@ -18,6 +19,7 @@ export interface TubeOptions {
 export const tube = createSkin<TubeOptions>({
   name: 'tube',
   css,
+  icons: tubeIcons,
   tokens: { accent: '#ff0033' },
   build(p, root, o) {
     let theater = false;

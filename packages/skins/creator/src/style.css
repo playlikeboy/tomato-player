@@ -39,3 +39,4 @@
 .tp[data-skin='creator'] .tp-creator-title:has(.tp-title:empty) { display: none; }
 .tp[data-skin='creator'] .tp-icon { filter: none; }
 .tp[data-skin='creator'][data-size='sm'] .tp-time-display, .tp[data-skin='creator'][data-size='sm'] .tp-pip, .tp[data-skin='creator'][data-size='sm'] .tp-cast { display: none; }
+.tp[data-skin='creator'] [data-tp-icon='play'], .tp[data-skin='creator'] [data-tp-icon='pause'], .tp[data-skin='creator'] [data-tp-icon='play'] svg, .tp[data-skin='creator'] [data-tp-icon='pause'] svg { fill: currentColor; }

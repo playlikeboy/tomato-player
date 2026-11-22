@@ -191,6 +191,9 @@ export interface Skin {
   mount(player: Player, root: HTMLElement): void | (() => void);
 }
 
+/** A replacement icon: trusted SVG markup, or a function returning an element. */
+export type IconSource = string | ((name: string) => Element);
+
 export interface PlayerOptions {
   src?: Source | Source[];
   poster?: string;
@@ -213,6 +216,11 @@ export interface PlayerOptions {
   tokens?: Record<string, string>;
   /** Inject skin CSS automatically. Set `false` if you import the skin's `style.css`. */
   injectStyles?: boolean;
+  /**
+   * Replace control icons by name (`play`, `pause`, `settings`, `fullscreen`...). Wins over the skin's own set.
+   * A value is trusted SVG markup, or a function returning the element to show (framework bindings use this to render components).
+   */
+  icons?: Partial<Record<string, IconSource>>;
   /** Inactivity delay before `state.idle` becomes `true`. Default 2500ms. */
   idleTimeout?: number;
   /** Strings for i18n. Merged over English defaults. */

@@ -71,17 +71,19 @@ Patterns: pressed toggles show a 4px dot under the icon; menus open with a 200ms
 
 ## Skins
 
-| No. | Skin | Accent | Character |
-|---|---|---|---|
-| 01 | Minimal | `#f0472e` | one row over an eased scrim |
-| 02 | Cinema | `#e8b04b` | serif title card, 2px progress rule, remaining time |
-| 03 | Studio | `#38bdf8` | transport bar below the picture, frame timecode, playhead line |
-| 04 | Creator | `#a855f7` | floating blurred capsule, orange-to-purple progress |
-| 05 | Learn | `#10b981` | speed chips, sliding chapter panel, large captions |
-| 06 | Campus | `#6b3df5` | CampusLoop paper stickers, solid surfaces, no icon shadow |
-| 07 | Stream | `#e50914` | unofficial; large borderless icons that scale on hover |
-| 08 | Tube | `#ff0033` | unofficial; hairline progress that grows, underline toggle marks |
-| 09 | Feed | `#0866ff` | unofficial; muted autoplay with unmute pill |
+| No. | Skin | Accent | Character | Icons |
+|---|---|---|---|---|
+| 01 | Minimal | `#f0472e` | one row over an eased scrim | Tomato built-in; animated Lucide (@animateicons/react) on the site |
+| 02 | Cinema | `#e8b04b` | serif title card, 2px progress rule, remaining time | Phosphor light |
+| 03 | Studio | `#38bdf8` | transport bar below the picture, frame timecode, playhead line | Tabler outline |
+| 04 | Creator | `#a855f7` | floating blurred capsule, orange-to-purple progress | Lucide; animated (@animateicons/react) on the site |
+| 05 | Learn | `#10b981` | speed chips, sliding chapter panel, large captions | Heroicons outline |
+| 06 | Campus | `#6b3df5` | CampusLoop paper stickers, solid surfaces, no icon shadow | Phosphor bold, filled play |
+| 07 | Stream | `#e50914` | unofficial; large borderless icons that scale on hover | Tabler filled |
+| 08 | Tube | `#ff0033` | unofficial; hairline progress that grows, underline toggle marks | Material Symbols Rounded |
+| 09 | Feed | `#0866ff` | unofficial; muted autoplay with unmute pill | Heroicons solid |
+
+Icons resolve by name: `createPlayer({ icons })`, then the skin's set (`createSkin({ icons })`), then the built-in Tomato set. Each skin draws from a different library so the editions read as distinct objects; licenses ship in each skin's `THIRD_PARTY_NOTICES.md`. See `docs/guides/icons.md`.
 
 ## Imagery
 

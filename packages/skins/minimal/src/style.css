@@ -8,3 +8,4 @@
 .tp[data-skin='minimal'] .tp-time-slider { margin: 0 calc((var(--tp-control-size) - var(--tp-icon-size)) / 2); }
 .tp[data-skin='minimal'] .tp-big-play { --tp-control-size: 68px; --tp-icon-size: 28px; }
 .tp[data-skin='minimal'][data-size='sm'] .tp-pip { display: none; }
+.tp[data-skin='minimal'] [data-tp-icon='play'] svg, .tp[data-skin='minimal'] [data-tp-icon='pause'] svg { fill: currentColor; }

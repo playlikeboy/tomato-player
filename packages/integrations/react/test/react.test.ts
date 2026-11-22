@@ -40,4 +40,31 @@ describe('<TomatoPlayer />', () => {
     await act(async () => root.unmount());
     expect(player.destroyed).toBe(true);
   });
+
+  it('renders React nodes as control icons through portals', async () => {
+    const { createSkin, playButton } = await import('@tomato-player/ui');
+    const skin = createSkin({ name: 'icons-test', css: '', build: (p) => [playButton(p)] })();
+    const host = document.createElement('div');
+    document.body.append(host);
+    const root = createRoot(host);
+    let player: Player | undefined;
+    await act(async () => {
+      root.render(
+        createElement(TomatoPlayer, {
+          src: 'a.mp4',
+          skin,
+          icons: { play: createElement('svg', { 'data-testid': 'animated-play' }), pause: '<svg data-testid="pause-markup"></svg>' },
+          onReady: (p: Player) => (player = p),
+        }),
+      );
+    });
+    const button = host.querySelector('.tp-play')!;
+    expect(button.querySelector('[data-tp-icon="play"] [data-testid="animated-play"]')).not.toBeNull();
+    // Swapping state replaces the icon; markup values bypass React entirely.
+    await act(async () => player!.store.set({ paused: false }));
+    expect(button.querySelector('[data-testid="pause-markup"]')).not.toBeNull();
+    await act(async () => player!.store.set({ paused: true }));
+    expect(button.querySelector('[data-tp-icon="play"] [data-testid="animated-play"]')).not.toBeNull();
+    await act(async () => root.unmount());
+  });
 });

@@ -8,6 +8,7 @@ import {
   spacer, spinner, timeDisplay, timeSlider, unmuteButton, settingsMenu, speedSection, captionsSection,
 } from '@tomato-player/ui';
 import css from './style.css';
+import { feedIcons } from './icons';
 
 export interface FeedOptions {
   /** Muted autoplay when scrolled into view, pause when scrolled away (default true). */
@@ -17,6 +18,7 @@ export interface FeedOptions {
 export const feed = createSkin<FeedOptions>({
   name: 'feed',
   css,
+  icons: feedIcons,
   tokens: { accent: '#0866ff' },
   build(p, _root, o) {
     const stop = o.autoplayInView !== false ? autoplayInView(p, { once: false }) : undefined;

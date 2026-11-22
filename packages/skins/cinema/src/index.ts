@@ -3,6 +3,7 @@ import {
   remainingTime, seekButton, settingsMenu, spacer, spinner, timeSlider, title, volumeControl,
 } from '@tomato-player/ui';
 import css from './style.css';
+import { cinemaIcons } from './icons';
 
 export interface CinemaOptions {
   /** Small label above the title, e.g. a studio or series name. */
@@ -14,6 +15,7 @@ export interface CinemaOptions {
 export const cinema = createSkin<CinemaOptions>({
   name: 'cinema',
   css,
+  icons: cinemaIcons,
   tokens: { accent: '#e8b04b' },
   build(p, _root, o) {
     const step = o.seekStep ?? 10;

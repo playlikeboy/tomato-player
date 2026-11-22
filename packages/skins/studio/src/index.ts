@@ -4,6 +4,7 @@ import {
 } from '@tomato-player/ui';
 import type { Player } from '@tomato-player/core';
 import css from './style.css';
+import { studioIcons } from './icons';
 
 export interface StudioOptions {
   /** Frames per second used for timecode and frame stepping (default 30). */
@@ -48,6 +49,7 @@ function abLoop(p: Player): Control {
 export const studio = createSkin<StudioOptions>({
   name: 'studio',
   css,
+  icons: studioIcons,
   tokens: { accent: '#38bdf8' },
   build(p, root, o) {
     const fps = o.fps ?? 30;

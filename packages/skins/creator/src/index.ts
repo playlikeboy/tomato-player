@@ -3,6 +3,7 @@ import {
   playButton, settingsMenu, spinner, timeDisplay, timeSlider, title, volumeControl, castButton,
 } from '@tomato-player/ui';
 import css from './style.css';
+import { creatorIcons } from './icons';
 
 export interface CreatorOptions {
   /** Two-stop accent gradient. */
@@ -13,6 +14,7 @@ export interface CreatorOptions {
 export const creator = createSkin<CreatorOptions>({
   name: 'creator',
   css,
+  icons: creatorIcons,
   tokens: { accent: '#a855f7' },
   build: (p, root, o) => {
     if (o.gradient) {

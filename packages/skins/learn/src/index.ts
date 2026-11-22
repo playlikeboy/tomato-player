@@ -5,6 +5,7 @@ import {
 } from '@tomato-player/ui';
 import { formatTime, type Player } from '@tomato-player/core';
 import css from './style.css';
+import { learnIcons } from './icons';
 
 export interface LearnOptions {
   /** Speeds shown as one-tap chips (default 0.75–2). */
@@ -63,6 +64,7 @@ function chapterPanel(p: Player): { panel: Control; toggle: Control } {
 export const learn = createSkin<LearnOptions>({
   name: 'learn',
   css,
+  icons: learnIcons,
   tokens: { accent: '#10b981' },
   build(p, _root, o) {
     const step = o.seekStep ?? 10;

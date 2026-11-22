@@ -8,6 +8,7 @@ import {
   playButton, remainingTime, seekButton, settingsMenu, spacer, spinner, timeSlider, title, volumeControl,
 } from '@tomato-player/ui';
 import css from './style.css';
+import { streamIcons } from './icons';
 
 export interface StreamOptions {
   /** Show "Next episode" and call this on click. */
@@ -22,6 +23,7 @@ export interface StreamOptions {
 export const stream = createSkin<StreamOptions>({
   name: 'stream',
   css,
+  icons: streamIcons,
   tokens: { accent: '#e50914' },
   build(p, _root, o) {
     const back = o.onBack ? button(p, { icon: 'previous', label: 'Back', className: 'tp-back', onClick: o.onBack }) : null;

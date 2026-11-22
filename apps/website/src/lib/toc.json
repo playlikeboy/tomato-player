@@ -73,6 +73,13 @@
           "description": "Load Tomato Player from jsDelivr with one script tag or ES modules and an import map, add HLS and DASH, pin a build and run it under a strict CSP."
         },
         {
+          "slug": "guides/icons",
+          "file": "docs/guides/icons.md",
+          "title": "Icons",
+          "metaTitle": "Custom and animated video player icons",
+          "description": "Replace any Tomato Player control icon by name with SVG markup or React components, including animated icons from @animateicons/react. Each skin ships its own icon set."
+        },
+        {
           "slug": "guides/accessibility",
           "file": "docs/guides/accessibility.md",
           "title": "Accessibility",

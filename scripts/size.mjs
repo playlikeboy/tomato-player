@@ -4,7 +4,8 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
-const budget = { core: 6, ui: 11, skin: 4.5, plugin: 1.5, provider: 1.2, integration: 1, bundle: 30 }; // KB gzip
+// Skins and the all-in-one bundle carry each skin's icon set (Phosphor, Tabler, Lucide, Heroicons, Material Symbols).
+const budget = { core: 6, ui: 11, skin: 5.5, plugin: 1.5, provider: 1.2, integration: 1, bundle: 45 }; // KB gzip
 const roots = ['packages', 'packages/skins', 'packages/plugins', 'packages/providers', 'packages/integrations'];
 const rows = [];
 let failed = false;

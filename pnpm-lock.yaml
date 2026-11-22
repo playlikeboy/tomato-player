@@ -32,6 +32,9 @@ importers:
 
   apps/website:
     dependencies:
+      '@animateicons/react':
+        specifier: ^0.13.0
+        version: 0.13.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@astryxdesign/core':
         specifier: 0.7.17
         version: 0.7.17(@stylexjs/stylex@0.19.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -159,12 +162,21 @@ importers:
         specifier: workspace:*
         version: link:../../core
     devDependencies:
+      '@tomato-player/ui':
+        specifier: workspace:^
+        version: link:../../ui
       '@types/react':
         specifier: ^19.0.0
         version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.3.0(@types/react@19.3.0)
       react:
         specifier: ^19.0.0
         version: 19.3.1
+      react-dom:
+        specifier: ^19
+        version: 19.3.1(react@19.3.1)
 
   packages/integrations/svelte:
     dependencies:
@@ -403,6 +415,13 @@ importers:
         version: link:../core
 
 packages:
+
+  '@animateicons/react@0.13.0':
+    resolution: {integrity: sha512-xbSymVZQJqUR1tcRVW4vyEy+USAFMDp0l3uM4nlmEyQazPib7Ay+PFKdBNLeXHXaSUGhKUYJXSvxHYkFki6P2w==}
+    engines: {node: '>=18.17.0'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@astryxdesign/cli@0.7.17':
     resolution: {integrity: sha512-zb4mzQVIUfFdkbYM93sEofEY5VQtlxoz73r3p5TOq1RF/A9QJfPXzjzrdDjsEZazC8DG9v8aTwlAxu8dMvLT8A==}
@@ -2418,6 +2437,11 @@ packages:
     resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
 snapshots:
+
+  '@animateicons/react@0.13.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
 
   '@astryxdesign/cli@0.7.17(@astryxdesign/core@0.7.17(@stylexjs/stylex@0.19.2)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))':
     dependencies:

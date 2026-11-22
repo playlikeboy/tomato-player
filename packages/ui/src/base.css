@@ -86,6 +86,20 @@
   background: currentColor;
 }
 .tp-icon { width: var(--tp-icon-size); height: var(--tp-icon-size); display: block; filter: var(--tp-icon-shadow); }
+/* Icons rendered by a framework component (React portals and similar) sit in a sized host. */
+.tp-icon:not(svg) { display: grid; place-items: center; }
+.tp-icon:not(svg) svg { width: 100%; height: 100%; display: block; }
+.tp-icon:not(svg) > span { display: contents; }
+/* Icon micro-motion on SVG icons; component icons (React portals) bring their own animation. */
+svg.tp-icon { transition: transform var(--tp-duration) var(--tp-ease); }
+.tp-button:hover > svg[data-tp-icon='settings'], .tp-button[aria-expanded='true'] > svg[data-tp-icon='settings'] { transform: rotate(45deg); }
+.tp-button:hover > svg[data-tp-icon='forward'] { transform: rotate(20deg); }
+.tp-button:hover > svg[data-tp-icon='backward'], .tp-button:hover > svg[data-tp-icon='replay'] { transform: rotate(-20deg); }
+.tp-button:hover > svg[data-tp-icon='fullscreen'] { transform: scale(1.12); }
+.tp-button:hover > svg[data-tp-icon='fullscreenExit'] { transform: scale(0.88); }
+.tp-button:hover > svg[data-tp-icon='next'] { transform: translateX(2px); }
+.tp-button:hover > svg[data-tp-icon='previous'] { transform: translateX(-2px); }
+.tp-button:active > svg.tp-icon { transform: scale(0.9); }
 .tp-button-text { margin-left: 6px; font-weight: 600; }
 .tp-seek { grid-template-areas: 'stack'; }
 .tp-seek > * { grid-area: stack; }

@@ -24,6 +24,6 @@ describe.skipIf(!existsSync(bundle))('CDN bundle (run `pnpm build` first)', () =
 
   it('does not inline streaming engines', () => {
     // hls.js alone is ~400 KB minified; the whole bundle must stay far below that.
-    expect(readFileSync(bundle).length).toBeLessThan(150_000);
+    expect(readFileSync(bundle).length).toBeLessThan(250_000);
   });
 });

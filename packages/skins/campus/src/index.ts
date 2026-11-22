@@ -5,11 +5,12 @@
  */
 import {
   autoplayInView, captionOverlay, captionsButton, createSkin, errorOverlay, fullscreenButton, gestureLayer, group,
-  h, pipButton, playButton, rateButton, spinner, svg, icons, timeDisplay, timeSlider, unmuteButton, volumeControl,
+  h, pipButton, playButton, rateButton, spinner, icon, timeDisplay, timeSlider, unmuteButton, volumeControl,
   type Control,
 } from '@tomato-player/ui';
 import type { Player } from '@tomato-player/core';
 import css from './style.css';
+import { campusIcons } from './icons';
 
 export interface CampusOptions {
   /** Label on the poster play pill (default "Play the video"). */
@@ -26,7 +27,7 @@ function playPill(p: Player, label: string): Control {
   const el = h(
     'button',
     { type: 'button', class: 'tp-campus-play' },
-    h('span', { class: 'tp-campus-play-pill' }, h('span', { class: 'tp-campus-play-dot' }, svg(icons.play)), h('span', { class: 'tp-campus-play-text' }, label), h('span', { class: 'tp-sr' }, ', with sound')),
+    h('span', { class: 'tp-campus-play-pill' }, h('span', { class: 'tp-campus-play-dot' }, icon(p, 'play')), h('span', { class: 'tp-campus-play-text' }, label), h('span', { class: 'tp-sr' }, ', with sound')),
   );
   const onClick = () => {
     p.setMuted(false);
@@ -49,6 +50,7 @@ function campusError(p: Player, message: string): Control {
 export const campus = createSkin<CampusOptions>({
   name: 'campus',
   css,
+  icons: campusIcons,
   build(p, root, o) {
     const theme = o.theme ?? 'auto';
     if (theme !== 'auto') root.parentElement?.setAttribute('data-theme', theme);

@@ -32,3 +32,4 @@
 .tp[data-skin='learn'] .tp-chapter-time { color: var(--tp-muted-fg); font-variant-numeric: tabular-nums; min-width: 4ch; }
 .tp[data-skin='learn'] .tp-caption-text { background: rgba(2, 6, 23, 0.88); font-size: clamp(15px, 2.8cqw, 26px); line-height: 1.4; padding: 6px 14px; }
 .tp[data-skin='learn'][data-size='sm'] .tp-rate-chips, .tp[data-skin='learn'][data-size='sm'] .tp-seek { display: none; }
+.tp[data-skin='learn'] [data-tp-icon='play'], .tp[data-skin='learn'] [data-tp-icon='pause'] { fill: currentColor; }

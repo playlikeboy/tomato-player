@@ -2,7 +2,8 @@
 
 // Live Tomato Player used across the site. Skins, plugins and engines load on demand,
 // so a page only downloads the pieces its demo needs.
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useIconPortals, type ReactIconSet } from '@tomato-player/react';
 import type { Player as TomatoPlayer, PlayerOptions, Plugin } from '@tomato-player/core';
 import { MEDIA, asset, type PluginSlug, type SkinSlug } from '@/lib/site';
 
@@ -45,6 +46,8 @@ export interface PlayerProps {
   /** Extra createPlayer options. */
   options?: Partial<PlayerOptions>;
   label?: string;
+  /** Use animated @animateicons/react icons. Defaults to on for the skins in ANIMATED_SKINS. */
+  animatedIcons?: boolean;
   /** Wait until the player scrolls near the viewport before loading anything. */
   lazy?: boolean;
   onReady?: (player: TomatoPlayer) => void | (() => void);
@@ -54,6 +57,9 @@ export const tracks = () => [
   { src: asset('/media/captions.en.vtt'), label: 'English', srclang: 'en' },
   { src: asset('/media/captions.es.vtt'), label: 'Español', srclang: 'es' },
 ];
+
+/** Skins that show animated icons on the site. */
+export const ANIMATED_SKINS: SkinSlug[] = ['minimal', 'creator'];
 
 export function resolveSource(source: SourceKind | string) {
   return source in MEDIA ? (MEDIA as Record<string, string>)[source] : source;
@@ -71,13 +77,27 @@ export function Player({
   options,
   label,
   lazy = false,
+  animatedIcons,
   onReady,
 }: PlayerProps) {
   const host = useRef<HTMLDivElement>(null);
   const playerRef = useRef<TomatoPlayer | null>(null);
-  const key = JSON.stringify([skin, skinOptions, source, plugins, pluginOptions, captions, title, options]);
+  const animated = animatedIcons ?? ANIMATED_SKINS.includes(skin);
+  const [iconSet, setIconSet] = useState<ReactIconSet>();
+  useEffect(() => {
+    if (!animated) return setIconSet(undefined);
+    let active = true;
+    import('./animated-icons').then((m) => active && setIconSet(m.ANIMATED_ICONS));
+    return () => {
+      active = false;
+    };
+  }, [animated]);
+  const { icons, portals } = useIconPortals(animated ? iconSet : undefined);
+  const ready = !animated || iconSet !== undefined;
+  const key = JSON.stringify([skin, skinOptions, source, plugins, pluginOptions, captions, title, options, animated]);
 
   useEffect(() => {
+    if (!ready) return;
     let cancelled = false;
     let cleanup: void | (() => void);
     const mount = host.current;
@@ -123,6 +143,7 @@ export function Player({
         plugins: loadedPlugins,
         skin: skinImpl,
         tokens,
+        icons,
         ...options,
       });
       playerRef.current = player;
@@ -136,7 +157,7 @@ export function Player({
       mount?.replaceChildren();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key]);
+  }, [key, ready]);
 
   // Token changes apply live, without rebuilding the player.
   useEffect(() => {
@@ -145,5 +166,10 @@ export function Player({
     for (const [name, value] of Object.entries(tokens)) el.style.setProperty(name.startsWith("--") ? name : `--tp-${name}`, value);
   }, [tokens]);
 
-  return <div ref={host} role="region" aria-label={label ?? `${title} video player`} className="tp-host" data-portrait={skin === 'campus' || undefined} />;
+  return (
+    <>
+      {portals}
+      <div ref={host} role="region" aria-label={label ?? `${title} video player`} className="tp-host" data-portrait={skin === 'campus' || undefined} />
+    </>
+  );
 }

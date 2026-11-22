@@ -310,7 +310,7 @@ Every factory in `@tomato-player/ui` takes the player and returns a `Control` th
 | Menus | `settingsMenu(p, sections?)` with `qualitySection(p)`, `speedSection(p, rates?)`, `captionsSection(p)`, `audioSection(p)` or your own `MenuSection` |
 | Layout | `group(className, ...children)`, `spacer()`, `mountAll(root, controls)` |
 | Behaviors | `autoplayInView(p, { playAt?, pauseAt?, respectQuiet?, once? })` returns a cleanup function, not a control |
-| DOM helpers | `h(tag, attrs, ...children)`, `svg(markup)`, `icons`, `Scope` |
+| DOM helpers | `h(tag, attrs, ...children)`, `svg(markup)`, `icon(player, name)`, `icons`, `Scope` |
 
 Built-in behavior you get for free:
 
@@ -483,7 +483,7 @@ Guidelines:
 - Put every listener, timer and observer in `destroy()` or in the skin's `cleanup()`. `Scope` collects them: `scope.listen(el, 'click', fn)`, `scope.add(off)`, `scope.dispose()`.
 - Reach the root with `player.el` and the video with `player.media`. Prefix any attribute you set on the root (`data-aurora-portrait`) and remove it in `cleanup()`.
 - `player.t(key)` returns the key itself when no string exists, so take visible labels as skin options or ask users to add keys through `i18n`.
-- Inline icons with `svg(icons.play)` or pass an icon name to `button({ icon: 'chapters' })`. `icons` contains: `play`, `pause`, `replay`, `volumeHigh`, `volumeLow`, `volumeMuted`, `fullscreen`, `fullscreenExit`, `pip`, `captions`, `settings`, `forward`, `backward`, `next`, `previous`, `cast`, `chapters`, `check`, `chevron`, `theater`, `tomato`.
+- Render icons with `icon(player, 'play')` or pass an icon name to `button({ icon: 'chapters' })`, so users can replace them (see [Icons](icons.md)). Give the skin its own set with `createSkin({ icons })`. Names: `play`, `pause`, `replay`, `volumeHigh`, `volumeLow`, `volumeMuted`, `fullscreen`, `fullscreenExit`, `pip`, `captions`, `settings`, `forward`, `backward`, `next`, `previous`, `cast`, `chapters`, `check`, `chevron`, `theater`, `tomato`.
 
 ## 7. Worked example: the Aurora skin
 

@@ -50,3 +50,4 @@
 .tp[data-skin='studio'] .tp-menu-item { border-radius: 4px; font-size: 13px; }
 .tp[data-skin='studio'] .tp-preview-time { font-family: var(--tp-font); border-radius: 3px; }
 .tp[data-skin='studio'][data-size='sm'] .tp-frame, .tp[data-skin='studio'][data-size='sm'] .tp-ab { display: none; }
+.tp[data-skin='studio'] [data-tp-icon='play'], .tp[data-skin='studio'] [data-tp-icon='pause'] { fill: currentColor; }

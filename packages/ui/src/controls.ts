@@ -1,6 +1,7 @@
 import { clamp, formatTime, type Player, type PlayerState } from '@tomato-player/core';
 import { Scope, h, svg, type Child } from './dom';
 import { icons, type IconName } from './icons';
+import { icon, icon as renderIcon } from './icon';
 
 export interface Control {
   el: HTMLElement;
@@ -40,10 +41,10 @@ export interface ButtonOptions {
 }
 
 /** Accessible icon button. `icon` may be an icon name or raw trusted SVG markup. */
-export function button(_player: Player, opts: ButtonOptions): Control {
+export function button(player: Player, opts: ButtonOptions): Control {
   const scope = new Scope();
   const el = h('button', { type: 'button', class: `tp-button ${opts.className ?? ''}`.trim(), 'aria-label': opts.label, title: opts.label });
-  if (opts.icon) el.append(svg(opts.icon in icons ? icons[opts.icon as IconName] : opts.icon));
+  if (opts.icon) el.append(opts.icon in icons ? icon(player, opts.icon) : svg(opts.icon));
   if (opts.text) el.append(h('span', { class: 'tp-button-text' }, opts.text));
   scope.listen(el, 'click', opts.onClick);
   return control(el, scope);
@@ -58,7 +59,7 @@ function toggleButton(player: Player, className: string, onClick: () => void, re
     if (json === last) return;
     last = json;
     const { icon, label, pressed } = JSON.parse(json) as ReturnType<typeof render>;
-    el.replaceChildren(svg(icons[icon]));
+    el.replaceChildren(renderIcon(player, icon));
     el.setAttribute('aria-label', label);
     el.title = label;
     if (pressed !== undefined) el.setAttribute('aria-pressed', String(pressed));
@@ -467,7 +468,7 @@ export function settingsMenu(player: Player, sections?: MenuSection[]): Control 
   const scope = new Scope();
   const list = sections ?? [qualitySection(player), speedSection(player), captionsSection(player), audioSection(player)];
   const panel = h('div', { class: 'tp-menu', role: 'menu', hidden: true });
-  const trigger = h('button', { type: 'button', class: 'tp-button tp-settings', 'aria-label': player.t('settings'), title: player.t('settings'), 'aria-haspopup': 'menu', 'aria-expanded': 'false' }, svg(icons.settings));
+  const trigger = h('button', { type: 'button', class: 'tp-button tp-settings', 'aria-label': player.t('settings'), title: player.t('settings'), 'aria-haspopup': 'menu', 'aria-expanded': 'false' }, icon(player, 'settings'));
   const el = h('div', { class: 'tp-menu-wrap' }, trigger, panel);
   let open = false;
   let view: string | null = null;
@@ -487,11 +488,11 @@ export function settingsMenu(player: Player, sections?: MenuSection[]): Control 
     const section = list.find((s) => s.id === view);
     if (section) {
       const data = section.items(state);
-      panel.append(item(h('span', { class: 'tp-menu-back' }, svg(icons.chevron), section.label), null, () => ((view = null), render())));
+      panel.append(item(h('span', { class: 'tp-menu-back' }, icon(player, 'chevron'), section.label), null, () => ((view = null), render())));
       for (const it of data?.items ?? []) {
         const checked = it.value === data?.selected;
         panel.append(
-          item(it.label, checked ? svg(icons.check) : null, () => {
+          item(it.label, checked ? icon(player, 'check') : null, () => {
             section.select(it.value);
             view = null;
             close();
